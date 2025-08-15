@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Command, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import BookingDialog from "./BookingDialog";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,7 +80,7 @@ const Navigation = () => {
               </a>
             ))}
             <Button 
-              onClick={() => scrollToSection('cta')}
+              onClick={() => setIsBookingDialogOpen(true)}
               size="sm"
               className="button-gradient"
             >
@@ -115,7 +117,7 @@ const Navigation = () => {
                   <Button 
                     onClick={() => {
                       setIsMobileMenuOpen(false);
-                      scrollToSection('cta');
+                      setIsBookingDialogOpen(true);
                     }}
                     className="button-gradient mt-4"
                   >
@@ -127,6 +129,11 @@ const Navigation = () => {
           </div>
         </nav>
       </div>
+      
+      <BookingDialog 
+        open={isBookingDialogOpen} 
+        onOpenChange={setIsBookingDialogOpen} 
+      />
     </header>
   );
 };

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Command } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
+import BookingDialog from "@/components/BookingDialog";
 import { FeaturesSection } from "@/components/features/FeaturesSection";
 import { PricingSection } from "@/components/pricing/PricingSection";
 import LogoCarousel from "@/components/LogoCarousel";
@@ -10,6 +12,8 @@ import Footer from "@/components/Footer";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 const Index = () => {
+  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-black text-foreground">
       <Navigation />
@@ -65,7 +69,11 @@ const Index = () => {
             transition={{ delay: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 items-start"
           >
-            <Button size="lg" className="button-gradient">
+            <Button 
+              size="lg" 
+              className="button-gradient"
+              onClick={() => setIsBookingDialogOpen(true)}
+            >
               Book Service Now
             </Button>
             <Button size="lg" variant="link" className="text-white">
@@ -130,7 +138,11 @@ const Index = () => {
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of satisfied customers who trust us with their vehicle maintenance in Saham.
           </p>
-          <Button size="lg" className="button-gradient">
+          <Button 
+            size="lg" 
+            className="button-gradient"
+            onClick={() => setIsBookingDialogOpen(true)}
+          >
             Contact Us
             <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
@@ -141,6 +153,11 @@ const Index = () => {
       <div className="bg-black">
         <Footer />
       </div>
+
+      <BookingDialog 
+        open={isBookingDialogOpen} 
+        onOpenChange={setIsBookingDialogOpen} 
+      />
     </div>
   );
 };
