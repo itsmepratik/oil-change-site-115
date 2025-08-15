@@ -40,9 +40,9 @@ const Navigation = () => {
   };
 
   const navItems = [
-    { name: "Features", href: "#features", onClick: () => scrollToSection('features') },
-    { name: "Prices", href: "#pricing", onClick: () => scrollToSection('pricing') },
-    { name: "Testimonials", href: "#testimonials", onClick: () => scrollToSection('testimonials') },
+    { name: "Services", href: "#features", onClick: () => scrollToSection('features') },
+    { name: "Pricing", href: "#pricing", onClick: () => scrollToSection('pricing') },
+    { name: "Reviews", href: "#testimonials", onClick: () => scrollToSection('testimonials') },
   ];
 
   return (
@@ -57,7 +57,7 @@ const Navigation = () => {
         <nav className="flex items-center justify-between h-full">
           <div className="flex items-center gap-2">
             <Command className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">CryptoTrade</span>
+            <span className="font-bold text-base">HNS Automotive</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -82,7 +82,7 @@ const Navigation = () => {
               size="sm"
               className="button-gradient"
             >
-              Start Trading
+              Book Service
             </Button>
           </div>
 
@@ -119,7 +119,7 @@ const Navigation = () => {
                     }}
                     className="button-gradient mt-4"
                   >
-                    Start Trading
+                    Book Service
                   </Button>
                 </div>
               </SheetContent>
