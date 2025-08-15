@@ -9,12 +9,12 @@ export const FeaturesSection = () => {
       {/* Header Section */}
       <div className="max-w-2xl mb-20">
         <h2 className="text-5xl md:text-6xl font-normal mb-6 tracking-tight text-left">
-          Advanced Trading
+          Professional Auto
           <br />
-          <span className="text-gradient font-medium">Features & Tools</span>
+          <span className="text-gradient font-medium">Services & Parts</span>
         </h2>
         <p className="text-lg md:text-xl text-gray-400 text-left">
-          Experience professional-grade trading tools and features designed for both novice and experienced crypto traders.
+          Experience comprehensive automotive services including oil changes, spare parts, and battery sales in Saham, Oman.
         </p>
       </div>
 

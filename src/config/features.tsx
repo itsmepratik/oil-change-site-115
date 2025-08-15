@@ -2,26 +2,26 @@ import { BarChart3, ShieldCheck, Wallet, ArrowUpDown } from "lucide-react";
 
 export const features = [
   {
-    title: "Advanced Trading Interface",
-    description: "Professional-grade trading tools with real-time market data and advanced charting capabilities.",
+    title: "Professional Oil Changes",
+    description: "Quick and efficient oil change service using high-quality motor oils and filters for optimal engine performance.",
     icon: <BarChart3 className="w-6 h-6" />,
     image: "/lovable-uploads/86329743-ee49-4f2e-96f7-50508436273d.png"
   },
   {
-    title: "Portfolio Management",
-    description: "Track your investments and monitor your gains with our comprehensive portfolio dashboard.",
+    title: "Quality Spare Parts",
+    description: "Wide selection of genuine and aftermarket auto parts for all major vehicle brands and models.",
     icon: <Wallet className="w-6 h-6" />,
     image: "/lovable-uploads/7335619d-58a9-41ad-a233-f7826f56f3e9.png"
   },
   {
-    title: "Security & Verification",
-    description: "Industry-leading security measures with KYC verification process to protect your assets.",
+    title: "Battery Sales & Service",
+    description: "Premium automotive batteries with professional installation and testing services for reliable vehicle performance.",
     icon: <ShieldCheck className="w-6 h-6" />,
     image: "/lovable-uploads/b6436838-5c1a-419a-9cdc-1f9867df073d.png"
   },
   {
-    title: "Performance Analytics",
-    description: "Detailed analytics and credit scoring system to help you make informed decisions.",
+    title: "Expert Maintenance",
+    description: "Comprehensive vehicle maintenance services by certified technicians to keep your car running smoothly.",
     icon: <ArrowUpDown className="w-6 h-6" />,
     image: "/lovable-uploads/79f2b901-8a4e-42a5-939f-fae0828e0aef.png"
   }

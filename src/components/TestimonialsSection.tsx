@@ -6,40 +6,40 @@ import { Card } from "./ui/card";
 
 const testimonials = [
   {
-    name: "Michael Chen",
-    role: "Professional Trader",
+    name: "Ahmad Al-Rashid",
+    role: "Fleet Manager",
     image: "https://avatars.githubusercontent.com/u/1234567?v=4",
-    content: "The real-time market data and advanced trading features have significantly improved my trading performance. The platform's security measures give me peace of mind."
+    content: "The quick oil change service and quality parts have kept our company vehicles running smoothly. Their professional service and competitive prices make them our go-to choice in Saham."
   },
   {
-    name: "Sarah Johnson",
-    role: "Crypto Fund Manager",
+    name: "Fatima Al-Zahra",
+    role: "Local Resident",
     image: "https://avatars.githubusercontent.com/u/2345678?v=4",
-    content: "CryptoTrade's institutional-grade tools have transformed our trading strategy. The API integration and automated features have saved us countless hours."
+    content: "I've been bringing my car here for over 2 years. The staff is knowledgeable, the service is fast, and they always use quality oil and filters. Highly recommended!"
   },
   {
-    name: "David Wilson",
-    role: "Early Crypto Investor",
+    name: "Mohammed Al-Busaidi",
+    role: "Taxi Driver",
     image: "https://avatars.githubusercontent.com/u/3456789?v=4",
-    content: "The customer support is exceptional, and the platform's intuitive design made getting started with crypto trading seamless. A game-changer for both beginners and pros."
+    content: "As a taxi driver, regular maintenance is crucial. Their oil change service is efficient and affordable. The team understands the needs of commercial vehicles."
   },
   {
-    name: "Emily Zhang",
-    role: "DeFi Developer",
+    name: "Aisha Al-Hinai",
+    role: "Working Professional",
     image: "https://avatars.githubusercontent.com/u/4567890?v=4",
-    content: "We've seen remarkable improvements in our trading efficiency since switching to CryptoTrade. The smart order routing and liquidity aggregation are particularly impressive."
+    content: "I appreciate their quick service and fair pricing. They also helped me find the right battery for my car. Professional and trustworthy service center."
   },
   {
-    name: "James Rodriguez",
-    role: "Crypto Security Expert",
+    name: "Salem Al-Kindi",
+    role: "Car Enthusiast",
     image: "https://avatars.githubusercontent.com/u/5678901?v=4",
-    content: "The security features are robust and the regular updates keep us ahead of emerging threats. It's exactly what the crypto industry needed."
+    content: "They stock quality spare parts and their oil change service is top-notch. The technicians are experienced and always provide honest advice about my vehicle's needs."
   },
   {
-    name: "Lisa Thompson",
-    role: "Portfolio Manager",
+    name: "Mariam Al-Lawati",
+    role: "Family Driver",
     image: "https://avatars.githubusercontent.com/u/6789012?v=4",
-    content: "The platform's ability to handle complex trading strategies while maintaining simplicity in its interface is remarkable. It's been invaluable for our portfolio management."
+    content: "Reliable service with a personal touch. They remember my car's service history and always remind me when it's time for maintenance. Great customer care!"
   }
 ];
 
@@ -54,9 +54,9 @@ const TestimonialsSection = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-normal mb-4">Trusted by Traders</h2>
+          <h2 className="text-5xl font-normal mb-4">Trusted by Customers</h2>
           <p className="text-muted-foreground text-lg">
-            Join thousands of satisfied traders on CryptoTrade
+            Join thousands of satisfied customers in Saham and North Al Batinah
           </p>
         </motion.div>
 
