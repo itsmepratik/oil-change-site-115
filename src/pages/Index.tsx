@@ -72,7 +72,10 @@ const Index = () => {
             <Button 
               size="lg" 
               className="button-gradient"
-              onClick={() => setIsBookingDialogOpen(true)}
+              onClick={() => {
+                console.log("Hero button clicked");
+                setIsBookingDialogOpen(true);
+              }}
             >
               Book Service Now
             </Button>
@@ -141,7 +144,10 @@ const Index = () => {
           <Button 
             size="lg" 
             className="button-gradient"
-            onClick={() => setIsBookingDialogOpen(true)}
+            onClick={() => {
+              console.log("CTA button clicked");
+              setIsBookingDialogOpen(true);
+            }}
           >
             Contact Us
             <ArrowRight className="ml-2 w-4 h-4" />

@@ -80,7 +80,10 @@ const Navigation = () => {
               </a>
             ))}
             <Button 
-              onClick={() => setIsBookingDialogOpen(true)}
+              onClick={() => {
+                console.log("Nav button clicked");
+                setIsBookingDialogOpen(true);
+              }}
               size="sm"
               className="button-gradient"
             >
