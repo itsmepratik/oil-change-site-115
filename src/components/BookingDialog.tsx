@@ -70,7 +70,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] glass border-white/20 bg-[#0A0A0A]/95 backdrop-blur-xl">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-gradient">
             Book Your Service
