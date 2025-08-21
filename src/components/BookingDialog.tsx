@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock, User, Phone, Car, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Dialog,
   DialogContent,
@@ -31,6 +32,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
     notes: ""
   });
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,8 +40,8 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
     // Basic validation
     if (!formData.name || !formData.phone || !formData.vehicleModel || !formData.serviceType) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
+        title: t('booking.missingInfo'),
+        description: t('booking.fillFields'),
         variant: "destructive",
       });
       return;
@@ -47,8 +49,8 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
 
     // Simulate booking submission
     toast({
-      title: "Booking Confirmed!",
-      description: "We'll contact you shortly to confirm your appointment.",
+      title: t('booking.confirmed'),
+      description: t('booking.contactShortly'),
     });
 
     // Reset form and close dialog
@@ -73,10 +75,10 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-gradient">
-            Book Your Service
+            {t('booking.title')}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            Schedule your professional oil change service in Saham
+            {t('booking.subtitle')}
           </DialogDescription>
         </DialogHeader>
 
@@ -92,7 +94,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
             <div className="space-y-2">
               <Label htmlFor="name" className="text-sm font-medium flex items-center gap-2">
                 <User className="w-4 h-4 text-primary" />
-                Full Name *
+                {t('booking.fullName')} {t('booking.required')}
               </Label>
               <Input
                 id="name"
@@ -106,7 +108,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
             <div className="space-y-2">
               <Label htmlFor="phone" className="text-sm font-medium flex items-center gap-2">
                 <Phone className="w-4 h-4 text-primary" />
-                Phone Number *
+                {t('booking.phoneNumber')} {t('booking.required')}
               </Label>
               <Input
                 id="phone"
@@ -123,7 +125,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
           <div className="space-y-2">
             <Label htmlFor="vehicle" className="text-sm font-medium flex items-center gap-2">
               <Car className="w-4 h-4 text-primary" />
-              Vehicle Make & Model *
+              {t('booking.vehicleModel')} {t('booking.required')}
             </Label>
             <Input
               id="vehicle"
@@ -139,16 +141,16 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
           <div className="space-y-2">
             <Label className="text-sm font-medium flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />
-              Service Type *
+              {t('booking.serviceType')} {t('booking.required')}
             </Label>
             <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
               <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
-                <SelectValue placeholder="Select service type" />
+                <SelectValue placeholder={t('booking.selectService')} />
               </SelectTrigger>
               <SelectContent className="glass border-white/20 bg-[#0A0A0A] text-white">
-                <SelectItem value="basic">Basic Service (25 OMR)</SelectItem>
-                <SelectItem value="premium">Premium Service (45 OMR)</SelectItem>
-                <SelectItem value="custom">Custom Service (Contact for quote)</SelectItem>
+                <SelectItem value="basic">{t('pricing.basic.name')} ({t('pricing.basic.price')})</SelectItem>
+                <SelectItem value="premium">{t('pricing.premium.name')} ({t('pricing.premium.price')})</SelectItem>
+                <SelectItem value="custom">{t('pricing.fleet.name')} ({t('pricing.fleet.price')})</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -158,7 +160,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
             <div className="space-y-2">
               <Label htmlFor="date" className="text-sm font-medium flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-primary" />
-                Preferred Date
+                {t('booking.preferredDate')}
               </Label>
               <Input
                 id="date"
@@ -172,11 +174,11 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
             <div className="space-y-2">
               <Label className="text-sm font-medium flex items-center gap-2">
                 <Clock className="w-4 h-4 text-primary" />
-                Preferred Time
+                {t('booking.preferredTime')}
               </Label>
               <Select value={formData.preferredTime} onValueChange={(value) => handleInputChange("preferredTime", value)}>
                 <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
-                  <SelectValue placeholder="Select time" />
+                  <SelectValue placeholder={t('booking.selectTime')} />
                 </SelectTrigger>
                 <SelectContent className="glass border-white/20 bg-[#0A0A0A] text-white">
                   <SelectItem value="8:00">8:00 AM</SelectItem>
@@ -197,13 +199,13 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
           {/* Additional Notes */}
           <div className="space-y-2">
             <Label htmlFor="notes" className="text-sm font-medium">
-              Additional Notes
+              {t('booking.additionalNotes')}
             </Label>
             <Textarea
               id="notes"
               value={formData.notes}
               onChange={(e) => handleInputChange("notes", e.target.value)}
-              placeholder="Any special requests or additional services needed..."
+              placeholder={t('booking.notesPlaceholder')}
               className="glass border-white/20 bg-white/5 text-white placeholder:text-gray-400 min-h-[80px]"
             />
           </div>
@@ -220,7 +222,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
               className="w-full button-gradient text-white font-medium"
               size="lg"
             >
-              Confirm Booking
+              {t('booking.confirmBooking')}
             </Button>
           </motion.div>
         </motion.form>

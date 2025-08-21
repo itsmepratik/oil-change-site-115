@@ -1,16 +1,19 @@
 import { Github, Twitter } from "lucide-react";
 import { Button } from "./ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   return (
     <footer className="w-full py-12 mt-20">
       <div className="container px-4">
         <div className="glass glass-hover rounded-xl p-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
-              <h3 className="font-medium text-lg">Saham Oil Service</h3>
+              <h3 className="font-medium text-lg">{t('footer.company')}</h3>
               <p className="text-sm text-muted-foreground">
-                North Al Batinah's premier oil change and automotive service center.
+                {t('footer.description')}
               </p>
               <div className="flex space-x-4">
                 <Button variant="ghost" size="icon">
@@ -23,48 +26,48 @@ const Footer = () => {
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-medium">Services</h4>
+              <h4 className="font-medium">{t('footer.services')}</h4>
               <ul className="space-y-2">
                 <li>
                   <a href="#features" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    Oil Changes
+                    {t('footer.oilChange')}
                   </a>
                 </li>
                 <li>
                   <a href="#pricing" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    Service Rates
+                    {t('footer.spareParts')}
                   </a>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-medium">Products</h4>
+              <h4 className="font-medium">{t('footer.products')}</h4>
               <ul className="space-y-2">
                 <li>
                   <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    Spare Parts
+                    {t('footer.motorOils')}
                   </a>
                 </li>
                 <li>
                   <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    Batteries
+                    {t('footer.batteries')}
                   </a>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-medium">Legal</h4>
+              <h4 className="font-medium">{t('footer.legal')}</h4>
               <ul className="space-y-2">
                 <li>
                   <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    Privacy Policy
+                    {t('footer.privacy')}
                   </a>
                 </li>
                 <li>
                   <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    Terms of Service
+                    {t('footer.terms')}
                   </a>
                 </li>
               </ul>
@@ -73,7 +76,7 @@ const Footer = () => {
 
           <div className="mt-8 pt-8 border-t border-white/10">
             <p className="text-sm text-muted-foreground text-center">
-              © {new Date().getFullYear()} Saham Oil Service Center. All rights reserved.
+              {t('footer.copyright')}
             </p>
           </div>
         </div>

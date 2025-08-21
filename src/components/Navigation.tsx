@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { Command, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageToggle from "./LanguageToggle";
 import BookingDialog from "./BookingDialog";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,9 +45,9 @@ const Navigation = () => {
   };
 
   const navItems = [
-    { name: "Services", href: "#features", onClick: () => scrollToSection('features') },
-    { name: "Pricing", href: "#pricing", onClick: () => scrollToSection('pricing') },
-    { name: "Reviews", href: "#testimonials", onClick: () => scrollToSection('testimonials') },
+    { name: t('nav.services'), href: "#features", onClick: () => scrollToSection('features') },
+    { name: t('nav.pricing'), href: "#pricing", onClick: () => scrollToSection('pricing') },
+    { name: t('nav.reviews'), href: "#testimonials", onClick: () => scrollToSection('testimonials') },
   ];
 
   return (
@@ -79,6 +82,7 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
+            <LanguageToggle />
             <Button 
               onClick={() => {
                 console.log("Nav button clicked");
@@ -87,7 +91,7 @@ const Navigation = () => {
               size="sm"
               className="button-gradient"
             >
-              Book Service
+              {t('nav.bookService')}
             </Button>
           </div>
 
@@ -117,15 +121,18 @@ const Navigation = () => {
                       {item.name}
                     </a>
                   ))}
-                  <Button 
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      setIsBookingDialogOpen(true);
-                    }}
-                    className="button-gradient mt-4"
-                  >
-                    Book Service
-                  </Button>
+                  <div className="mt-4 space-y-4">
+                    <LanguageToggle />
+                    <Button 
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setIsBookingDialogOpen(true);
+                      }}
+                      className="button-gradient w-full"
+                    >
+                      {t('nav.bookService')}
+                    </Button>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>

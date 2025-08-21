@@ -1,20 +1,24 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FeatureTab } from "./FeatureTab";
 import { FeatureContent } from "./FeatureContent";
-import { features } from "@/config/features";
+import { getFeatures } from "@/config/features";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const FeaturesSection = () => {
+  const { t } = useLanguage();
+  const features = getFeatures(t);
+  
   return (
     <section className="container px-4 py-24">
       {/* Header Section */}
       <div className="max-w-2xl mb-20">
         <h2 className="text-5xl md:text-6xl font-normal mb-6 tracking-tight text-left">
-          Professional Auto
+          {t('features.title').split(' ')[0]} {t('features.title').split(' ')[1]}
           <br />
-          <span className="text-gradient font-medium">Services & Parts</span>
+          <span className="text-gradient font-medium">{t('features.title').split(' ').slice(2).join(' ')}</span>
         </h2>
         <p className="text-lg md:text-xl text-gray-400 text-left">
-          Experience comprehensive automotive services including oil changes, spare parts, and battery sales in Saham, Oman.
+          {t('features.subtitle')}
         </p>
       </div>
 
