@@ -11,33 +11,34 @@ import LogoCarousel from "@/components/LogoCarousel";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Footer from "@/components/Footer";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-
 const Index = () => {
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
-  const { t } = useLanguage();
-
-  return (
-    <div className="min-h-screen bg-black text-foreground">
+  const {
+    t
+  } = useLanguage();
+  return <div className="min-h-screen bg-black text-foreground">
       <Navigation />
       
       {/* Hero Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative container px-4 pt-40 pb-20"
-      >
+      <motion.section initial={{
+      opacity: 0,
+      y: 20
+    }} animate={{
+      opacity: 1,
+      y: 0
+    }} transition={{
+      duration: 0.5
+    }} className="relative container px-4 pt-40 pb-20">
         {/* Background */}
-        <div 
-          className="absolute inset-0 -z-10 bg-[#0A0A0A]"
-        />
+        <div className="absolute inset-0 -z-10 bg-[#0A0A0A]" />
         
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="inline-block mb-4 px-4 py-1.5 rounded-full glass"
-        >
+        <motion.div initial={{
+        opacity: 0
+      }} animate={{
+        opacity: 1
+      }} transition={{
+        delay: 0.2
+      }} className="inline-block mb-4 px-4 py-1.5 rounded-full glass">
           <span className="text-sm font-medium">
             <Command className="w-4 h-4 inline-block mr-2" />
             {t('hero.badge')}
@@ -45,7 +46,7 @@ const Index = () => {
         </motion.div>
         
         <div className="max-w-4xl relative z-10">
-          <h1 className="text-5xl md:text-7xl font-normal mb-4 tracking-tight text-left">
+          <h1 className="text-5xl font-normal mb-4 tracking-tight text-right md:text-7xl">
             <span className="text-gray-200">
               <TextGenerateEffect words={t('hero.title1')} />
             </span>
@@ -55,30 +56,32 @@ const Index = () => {
             </span>
           </h1>
           
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl text-left"
-          >
+          <motion.p initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          delay: 0.4
+        }} className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl text-left">
             {t('hero.description')}{" "}
             <span className="text-white">{t('hero.bookToday')}</span>
           </motion.p>
           
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row gap-4 items-start"
-          >
-            <Button 
-              size="lg" 
-              className="button-gradient"
-              onClick={() => {
-                console.log("Hero button clicked");
-                setIsBookingDialogOpen(true);
-              }}
-            >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          delay: 0.5
+        }} className="flex flex-col sm:flex-row gap-4 items-start">
+            <Button size="lg" className="button-gradient" onClick={() => {
+            console.log("Hero button clicked");
+            setIsBookingDialogOpen(true);
+          }}>
               {t('hero.bookNow')}
             </Button>
             <Button size="lg" variant="link" className="text-white">
@@ -87,18 +90,17 @@ const Index = () => {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="relative mx-auto max-w-5xl mt-20"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} transition={{
+        delay: 0.6
+      }} className="relative mx-auto max-w-5xl mt-20">
           <div className="glass rounded-xl overflow-hidden">
-            <img
-              src="/lovable-uploads/c32c6788-5e4a-4fee-afee-604b03113c7f.png"
-              alt="Professional Oil Change Service"
-              className="w-full h-auto"
-            />
+            <img src="/lovable-uploads/c32c6788-5e4a-4fee-afee-604b03113c7f.png" alt="Professional Oil Change Service" className="w-full h-auto" />
           </div>
         </motion.div>
       </motion.section>
@@ -123,34 +125,30 @@ const Index = () => {
 
       {/* CTA Section */}
       <section className="container px-4 py-20 relative bg-black">
-        <div 
-          className="absolute inset-0 opacity-40"
-          style={{
-            backgroundImage: 'url("/lovable-uploads/21f3edfb-62b5-4e35-9d03-7339d803b980.png")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-[#0A0A0A]/80 backdrop-blur-lg border border-white/10 rounded-2xl p-8 md:p-12 text-center relative z-10"
-        >
+        <div className="absolute inset-0 opacity-40" style={{
+        backgroundImage: 'url("/lovable-uploads/21f3edfb-62b5-4e35-9d03-7339d803b980.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }} />
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} transition={{
+        duration: 0.5
+      }} className="bg-[#0A0A0A]/80 backdrop-blur-lg border border-white/10 rounded-2xl p-8 md:p-12 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             {t('cta.title')}
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             {t('cta.description')}
           </p>
-          <Button 
-            size="lg" 
-            className="button-gradient"
-            onClick={() => {
-              console.log("CTA button clicked");
-              setIsBookingDialogOpen(true);
-            }}
-          >
+          <Button size="lg" className="button-gradient" onClick={() => {
+          console.log("CTA button clicked");
+          setIsBookingDialogOpen(true);
+        }}>
             {t('cta.contactUs')}
             <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
@@ -162,12 +160,7 @@ const Index = () => {
         <Footer />
       </div>
 
-      <BookingDialog 
-        open={isBookingDialogOpen} 
-        onOpenChange={setIsBookingDialogOpen} 
-      />
-    </div>
-  );
+      <BookingDialog open={isBookingDialogOpen} onOpenChange={setIsBookingDialogOpen} />
+    </div>;
 };
-
 export default Index;
