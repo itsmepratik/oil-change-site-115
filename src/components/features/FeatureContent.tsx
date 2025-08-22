@@ -14,16 +14,20 @@ export const FeatureContent = ({
   title,
 }: FeatureContentProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [direction, setDirection] = useState(0); // 1 for next, -1 for prev
 
   // Handle both single image and multiple images
   const imageArray = images || (image ? [image] : []);
   const hasMultipleImages = imageArray.length > 1;
 
   const nextImage = () => {
+    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % imageArray.length);
   };
 
   const prevImage = () => {
+    setDirection(-1);
     setCurrentIndex(
       (prev) => (prev - 1 + imageArray.length) % imageArray.length
     );
@@ -49,11 +53,21 @@ export const FeatureContent = ({
     }
   };
 
+  // Image loading effect
+  useEffect(() => {
+    if (imageArray.length > 0) {
+      const img = new Image();
+      img.onload = () => setIsLoaded(true);
+      img.src = imageArray[0];
+    }
+  }, [imageArray]);
+
   // Auto-slide functionality
   useEffect(() => {
     if (!hasMultipleImages) return;
 
     const interval = setInterval(() => {
+      setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % imageArray.length);
     }, 5000); // 5 seconds
 
@@ -68,7 +82,7 @@ export const FeatureContent = ({
       className="h-full flex items-center justify-center"
     >
       {/* Desktop Navigation Arrows (Outside Image) */}
-      {hasMultipleImages && (
+      {hasMultipleImages && isLoaded && (
         <div className="hidden md:flex items-center justify-center w-full max-w-lg mx-auto">
           <button
             onClick={prevImage}
@@ -88,9 +102,9 @@ export const FeatureContent = ({
                   src={imageArray[currentIndex]}
                   alt={title}
                   className="w-full h-full object-cover object-center relative z-10 rounded-lg cursor-grab active:cursor-grabbing"
-                  initial={{ opacity: 0, x: 30, scale: 0.95 }}
+                  initial={{ opacity: 0, x: direction * 30, scale: 0.95 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -30, scale: 0.95 }}
+                  exit={{ opacity: 0, x: direction * -30, scale: 0.95 }}
                   transition={{
                     duration: 0.6,
                     ease: [0.25, 0.46, 0.45, 0.94],
@@ -156,9 +170,9 @@ export const FeatureContent = ({
                 src={imageArray[currentIndex]}
                 alt={title}
                 className="w-full h-full object-cover object-center relative z-10 rounded-lg cursor-grab active:cursor-grabbing"
-                initial={{ opacity: 0, x: 30, scale: 0.95 }}
+                initial={{ opacity: 0, x: direction * 30, scale: 0.95 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -30, scale: 0.95 }}
+                exit={{ opacity: 0, x: direction * -30, scale: 0.95 }}
                 transition={{
                   duration: 0.6,
                   ease: [0.25, 0.46, 0.45, 0.94],
