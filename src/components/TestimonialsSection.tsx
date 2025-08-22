@@ -56,7 +56,7 @@ const TestimonialsSection = () => {
         >
           <h2 className="text-5xl font-normal mb-4">Trusted by Customers</h2>
           <p className="text-muted-foreground text-lg">
-            Join thousands of satisfied customers in Saham and North Al Batinah
+            Join thousands of satisfied customers all across North Al Batinah and Oman
           </p>
         </motion.div>
 

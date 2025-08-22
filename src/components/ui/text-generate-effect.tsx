@@ -11,22 +11,16 @@ export const TextGenerateEffect = ({
 }) => {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
-  const displayText = useTransform(rounded, (latest) =>
-    words.slice(0, latest)
-  );
+  const displayText = useTransform(rounded, (latest) => words.slice(0, latest));
 
   useEffect(() => {
     const controls = animate(count, words.length, {
       type: "tween",
-      duration: 2.5, // Increased from 1 to 2.5 seconds
-      ease: "easeInOut",
+      duration: 0.8, // Faster typing speed
+      ease: [0.25, 0.46, 0.45, 0.94], // Smooth cubic-bezier easing
     });
     return controls.stop;
   }, [words]);
 
-  return (
-    <motion.span className={className}>
-      {displayText}
-    </motion.span>
-  );
+  return <motion.span className={className}>{displayText}</motion.span>;
 };
