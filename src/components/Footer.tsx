@@ -1,4 +1,5 @@
 import { Github, Twitter } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -61,14 +62,14 @@ const Footer = () => {
               <h4 className="font-medium">{t('footer.legal')}</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {t('footer.privacy')}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {t('footer.terms')}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
