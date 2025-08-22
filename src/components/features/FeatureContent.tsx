@@ -1,6 +1,15 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, PanInfo } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 interface FeatureContentProps {
   image?: string;
@@ -13,45 +22,14 @@ export const FeatureContent = ({
   images,
   title,
 }: FeatureContentProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [direction, setDirection] = useState(0); // 1 for next, -1 for prev
 
   // Handle both single image and multiple images
   const imageArray = images || (image ? [image] : []);
   const hasMultipleImages = imageArray.length > 1;
-
-  const nextImage = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % imageArray.length);
-  };
-
-  const prevImage = () => {
-    setDirection(-1);
-    setCurrentIndex(
-      (prev) => (prev - 1 + imageArray.length) % imageArray.length
-    );
-  };
-
-  // Handle drag end for swipe functionality
-  const handleDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
-  ) => {
-    const threshold = 75; // Increased threshold for better UX
-    const velocity = info.velocity.x;
-
-    if (info.offset.x > threshold || (info.offset.x > 30 && velocity > 500)) {
-      // Swiped right - go to previous image
-      prevImage();
-    } else if (
-      info.offset.x < -threshold ||
-      (info.offset.x < -30 && velocity < -500)
-    ) {
-      // Swiped left - go to next image
-      nextImage();
-    }
-  };
 
   // Image loading effect
   useEffect(() => {
@@ -62,17 +40,44 @@ export const FeatureContent = ({
     }
   }, [imageArray]);
 
-  // Auto-slide functionality
   useEffect(() => {
-    if (!hasMultipleImages) return;
+    if (!api) return;
 
-    const interval = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % imageArray.length);
-    }, 5000); // 5 seconds
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
 
-    return () => clearInterval(interval);
-  }, [hasMultipleImages, imageArray.length]);
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
+
+  const goToPrevious = useCallback(() => {
+    api?.scrollPrev();
+  }, [api]);
+
+  const goToNext = useCallback(() => {
+    api?.scrollNext();
+  }, [api]);
+
+  const goToSlide = useCallback((index: number) => {
+    api?.scrollTo(index);
+  }, [api]);
+
+  if (!isLoaded) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="h-full flex items-center justify-center"
+      >
+        <div className="glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+          <div className="w-full h-64 bg-muted/20 animate-pulse rounded-lg" />
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -82,10 +87,10 @@ export const FeatureContent = ({
       className="h-full flex items-center justify-center"
     >
       {/* Desktop Navigation Arrows (Outside Image) */}
-      {hasMultipleImages && isLoaded && (
+      {hasMultipleImages && (
         <div className="hidden md:flex items-center justify-center w-full max-w-lg mx-auto">
           <button
-            onClick={prevImage}
+            onClick={goToPrevious}
             className="flex items-center justify-center text-white hover:text-gray-300 transition-colors mr-4"
           >
             <ChevronLeft className="w-8 h-8" />
@@ -93,48 +98,42 @@ export const FeatureContent = ({
 
           <div className="glass rounded-xl overflow-hidden max-w-md relative">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-
-            {/* Image Container */}
-            <div className="relative">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentIndex}
-                  src={imageArray[currentIndex]}
-                  alt={title}
-                  className="w-full h-full object-cover object-center relative z-10 rounded-lg cursor-grab active:cursor-grabbing"
-                  initial={{ opacity: 0, x: direction * 30, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: direction * -30, scale: 0.95 }}
-                  transition={{
-                    duration: 0.6,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                    opacity: { duration: 0.4 },
-                    scale: { duration: 0.5 },
-                  }}
-                  drag={hasMultipleImages ? "x" : false}
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.2}
-                  onDragEnd={hasMultipleImages ? handleDragEnd : undefined}
-                />
-              </AnimatePresence>
-            </div>
-
-            {/* Mobile Touch Navigation */}
-            <div className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-              {imageArray.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    index === currentIndex ? "bg-white" : "bg-white/50"
-                  }`}
-                />
-              ))}
-            </div>
+            
+            <Carousel
+              setApi={setApi}
+              plugins={hasMultipleImages ? [
+                Autoplay({
+                  delay: 5000,
+                  stopOnInteraction: true,
+                  stopOnMouseEnter: true,
+                })
+              ] : []}
+              opts={{
+                align: "start",
+                loop: hasMultipleImages,
+                dragFree: false,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {imageArray.map((imgSrc, index) => (
+                  <CarouselItem key={index}>
+                    <motion.img
+                      src={imgSrc}
+                      alt={title}
+                      className="w-full h-full object-cover object-center relative z-10 rounded-lg"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
 
           <button
-            onClick={nextImage}
+            onClick={goToNext}
             className="flex items-center justify-center text-white hover:text-gray-300 transition-colors ml-4"
           >
             <ChevronRight className="w-8 h-8" />
@@ -147,7 +146,7 @@ export const FeatureContent = ({
         <div className="glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
           <motion.img
-            src={imageArray[currentIndex]}
+            src={imageArray[0]}
             alt={title}
             className="w-full h-full object-cover object-center relative z-10 rounded-lg"
             initial={{ opacity: 0, y: 20 }}
@@ -162,39 +161,46 @@ export const FeatureContent = ({
         <div className="md:hidden glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
 
-          {/* Image Container */}
-          <div className="relative">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={currentIndex}
-                src={imageArray[currentIndex]}
-                alt={title}
-                className="w-full h-full object-cover object-center relative z-10 rounded-lg cursor-grab active:cursor-grabbing"
-                initial={{ opacity: 0, x: direction * 30, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: direction * -30, scale: 0.95 }}
-                transition={{
-                  duration: 0.6,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                  opacity: { duration: 0.4 },
-                  scale: { duration: 0.5 },
-                }}
-                drag={hasMultipleImages ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={hasMultipleImages ? handleDragEnd : undefined}
-              />
-            </AnimatePresence>
-          </div>
+          <Carousel
+            setApi={setApi}
+            plugins={[
+              Autoplay({
+                delay: 5000,
+                stopOnInteraction: true,
+                stopOnMouseEnter: true,
+              })
+            ]}
+            opts={{
+              align: "start",
+              loop: true,
+              dragFree: false,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {imageArray.map((imgSrc, index) => (
+                <CarouselItem key={index}>
+                  <motion.img
+                    src={imgSrc}
+                    alt={title}
+                    className="w-full h-full object-cover object-center relative z-10 rounded-lg"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
 
-          {/* Mobile Touch Navigation */}
+          {/* Mobile Touch Navigation Dots */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
             {imageArray.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => goToSlide(index)}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentIndex ? "bg-white" : "bg-white/50"
+                  index === current - 1 ? "bg-white" : "bg-white/50"
                 }`}
               />
             ))}
