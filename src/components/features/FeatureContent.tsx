@@ -105,7 +105,7 @@ export const FeatureContent = ({
       >
         <div className="glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-          <div className="w-full h-64 bg-muted/20 animate-pulse rounded-lg" />
+          <div className="w-full h-full bg-muted/20 animate-pulse rounded-lg" />
         </div>
       </motion.div>
     );
@@ -135,14 +135,14 @@ export const FeatureContent = ({
               <div className="embla__container flex">
                 {imageArray.map((imgSrc, index) => (
                   <div key={index} className="embla__slide flex-[0_0_100%] min-w-0">
-                    <motion.img
-                      src={imgSrc}
-                      alt={title}
-                      className="w-full h-64 object-cover object-center relative z-10 rounded-lg"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
+                  <motion.img
+                    src={imgSrc}
+                    alt={title}
+                    className="w-full h-full object-cover object-center relative z-10 rounded-lg"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
                   </div>
                 ))}
               </div>
@@ -162,14 +162,14 @@ export const FeatureContent = ({
       {!hasMultipleImages && (
         <div className="glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-          <motion.img
-            src={imageArray[0]}
-            alt={title}
-            className="w-full h-64 object-cover object-center relative z-10 rounded-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          />
+        <motion.img
+          src={imageArray[0]}
+          alt={title}
+          className="w-full h-full object-cover object-center relative z-10 rounded-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        />
         </div>
       )}
 
@@ -185,7 +185,7 @@ export const FeatureContent = ({
                   <motion.img
                     src={imgSrc}
                     alt={title}
-                    className="w-full h-64 object-cover object-center relative z-10 rounded-lg"
+                    className="w-full h-full object-cover object-center relative z-10 rounded-lg"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
