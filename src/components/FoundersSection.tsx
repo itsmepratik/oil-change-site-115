@@ -6,23 +6,24 @@ const FoundersSection = () => {
 
   const founders = [
     {
-      name: "John Smith",
+      name: "Abul Hossain",
       role: "CEO & Founder",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-      description: "10+ years in automotive industry"
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+      description: "27+ years in automotive industry",
     },
     {
-      name: "Sarah Johnson", 
+      name: "Mohammed Rifat",
       role: "CTO & Co-Founder",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face",
-      description: "Expert in automotive technology"
+      image: "/lovable-uploads/rifat.jpg",
+      description: "Expert in business management",
     },
     {
-      name: "Michael Chen",
-      role: "COO & Co-Founder", 
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-      description: "Operations and service excellence"
-    }
+      name: "Mohammed Ashiq",
+      role: "COO & Co-Founder",
+      image: "/lovable-uploads/ashiq.jpg",
+      description: "Operations and service excellence",
+    },
   ];
 
   return (
@@ -35,11 +36,12 @@ const FoundersSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-            Meet Our Founders
+          <h2 className="text-5xl md:text-6xl font-normal mb-6 tracking-tight text-center">
+            Meet Our <span className="text-gradient font-medium">Founders</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Passionate automotive experts dedicated to revolutionizing car care services
+            Passionate automotive experts dedicated to revolutionizing car care
+            services
           </p>
         </motion.div>
 
@@ -63,10 +65,12 @@ const FoundersSection = () => {
                     />
                   </div>
                 </div>
-                
+
                 <h3 className="text-xl font-semibold mb-2">{founder.name}</h3>
                 <p className="text-primary font-medium mb-3">{founder.role}</p>
-                <p className="text-muted-foreground text-sm">{founder.description}</p>
+                <p className="text-muted-foreground text-sm">
+                  {founder.description}
+                </p>
               </div>
             </motion.div>
           ))}
