@@ -197,9 +197,6 @@ const Index = () => {
         <FeaturesSection />
       </div>
 
-      {/* Founders Section */}
-      <FoundersSection />
-
       {/* Pricing Section */}
       <div id="pricing" className="bg-black">
         <PricingSection />
@@ -209,6 +206,9 @@ const Index = () => {
       <div className="bg-black">
         <TestimonialsSection />
       </div>
+
+      {/* Founders Section */}
+      <FoundersSection />
 
       {/* CTA Section */}
       <section className="container px-4 py-20 relative bg-black">

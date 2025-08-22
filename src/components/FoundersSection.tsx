@@ -9,20 +9,20 @@ const FoundersSection = () => {
       name: "Abul Hossain",
       role: "CEO & Founder",
       image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+        "lovable-uploads/hossain.jpg",
       description: "27+ years in automotive industry",
     },
     {
-      name: "Mohammed Rifat",
-      role: "CTO & Co-Founder",
-      image: "/lovable-uploads/rifat.jpg",
-      description: "Expert in business management",
-    },
-    {
       name: "Mohammed Ashiq",
-      role: "COO & Co-Founder",
+      role: "COO",
       image: "/lovable-uploads/ashiq.jpg",
       description: "Operations and service excellence",
+    },
+    {
+      name: "Mohammed Rifat",
+      role: "CBO",
+      image: "/lovable-uploads/rifat.jpg",
+      description: "Expert in business management",
     },
   ];
 
