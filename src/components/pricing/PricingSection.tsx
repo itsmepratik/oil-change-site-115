@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CardSpotlight } from "./CardSpotlight";
+import QuoteDialog from "../QuoteDialog";
+import BookingDialog from "../BookingDialog";
+
 const PricingTier = ({
   name,
   price,
@@ -10,6 +14,7 @@ const PricingTier = ({
   features,
   isPopular,
   buttonText,
+  onButtonClick,
   t,
 }: {
   name: string;
@@ -18,6 +23,7 @@ const PricingTier = ({
   features: string[];
   isPopular?: boolean;
   buttonText: string;
+  onButtonClick: () => void;
   t: (key: string) => string;
 }) => (
   <CardSpotlight
@@ -42,14 +48,27 @@ const PricingTier = ({
           </li>
         ))}
       </ul>
-      <Button className="button-gradient w-full">
+      <Button className="button-gradient w-full" onClick={onButtonClick}>
         {buttonText}
       </Button>
     </div>
   </CardSpotlight>
 );
+
 export const PricingSection = () => {
   const { t } = useLanguage();
+  const [isQuoteDialogOpen, setIsQuoteDialogOpen] = useState(false);
+  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>("");
+
+  const handleQuoteClick = (serviceType: string) => {
+    setSelectedService(serviceType);
+    setIsQuoteDialogOpen(true);
+  };
+
+  const handleBookingClick = () => {
+    setIsBookingDialogOpen(true);
+  };
 
   return (
     <section className="container px-4 py-24">
@@ -104,6 +123,7 @@ export const PricingSection = () => {
             t("pricing.basic.feature4"),
           ]}
           buttonText="Get a Quote"
+          onButtonClick={() => handleQuoteClick("basic")}
           t={t}
         />
         <PricingTier
@@ -120,6 +140,7 @@ export const PricingSection = () => {
           ]}
           isPopular
           buttonText="Get a Quote"
+          onButtonClick={() => handleQuoteClick("premium")}
           t={t}
         />
         <PricingTier
@@ -137,9 +158,21 @@ export const PricingSection = () => {
             t("pricing.fleet.feature8"),
           ]}
           buttonText="Book a Call"
+          onButtonClick={handleBookingClick}
           t={t}
         />
       </div>
+
+      <QuoteDialog
+        open={isQuoteDialogOpen}
+        onOpenChange={setIsQuoteDialogOpen}
+        preSelectedService={selectedService}
+      />
+
+      <BookingDialog
+        open={isBookingDialogOpen}
+        onOpenChange={setIsBookingDialogOpen}
+      />
     </section>
   );
 };
