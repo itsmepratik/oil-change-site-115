@@ -24,7 +24,7 @@ const FoundersSection = () => {
       image: "/lovable-uploads/rifat.jpg",
       description: "Expert in business management",
     },
-  ];
+  ];``
 
   return (
     <section className="py-20 bg-background">
