@@ -9,6 +9,7 @@ const PricingTier = ({
   description,
   features,
   isPopular,
+  buttonText,
   t,
 }: {
   name: string;
@@ -16,6 +17,7 @@ const PricingTier = ({
   description: string;
   features: string[];
   isPopular?: boolean;
+  buttonText: string;
   t: (key: string) => string;
 }) => (
   <CardSpotlight
@@ -41,7 +43,7 @@ const PricingTier = ({
         ))}
       </ul>
       <Button className="button-gradient w-full">
-        Book a Call
+        {buttonText}
       </Button>
     </div>
   </CardSpotlight>
@@ -101,6 +103,7 @@ export const PricingSection = () => {
             t("pricing.basic.feature3"),
             t("pricing.basic.feature4"),
           ]}
+          buttonText="Get a Quote"
           t={t}
         />
         <PricingTier
@@ -116,6 +119,7 @@ export const PricingSection = () => {
             t("pricing.premium.feature6"),
           ]}
           isPopular
+          buttonText="Get a Quote"
           t={t}
         />
         <PricingTier
@@ -132,6 +136,7 @@ export const PricingSection = () => {
             t("pricing.fleet.feature7"),
             t("pricing.fleet.feature8"),
           ]}
+          buttonText="Book a Call"
           t={t}
         />
       </div>
