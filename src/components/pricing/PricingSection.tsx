@@ -41,7 +41,7 @@ const PricingTier = ({
         ))}
       </ul>
       <Button className="button-gradient w-full">
-        {t("pricing.bookService")}
+        Book a Call
       </Button>
     </div>
   </CardSpotlight>
