@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import * as React from "react";
 import { motion } from "framer-motion";
 import { User, Phone, Car, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -30,6 +31,13 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
     serviceType: preSelectedService || "",
     notes: ""
   });
+
+  // Update service type when preSelectedService changes
+  React.useEffect(() => {
+    if (preSelectedService) {
+      setFormData(prev => ({ ...prev, serviceType: preSelectedService }));
+    }
+  }, [preSelectedService]);
   const { toast } = useToast();
   const { t } = useLanguage();
 
