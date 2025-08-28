@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CardSpotlight } from "./CardSpotlight";
+import BookingDialog from "@/components/BookingDialog";
+
 const PricingTier = ({
   name,
   price,
@@ -10,6 +13,8 @@ const PricingTier = ({
   features,
   isPopular,
   t,
+  onBookService,
+  isFleet,
 }: {
   name: string;
   price: string;
@@ -17,6 +22,8 @@ const PricingTier = ({
   features: string[];
   isPopular?: boolean;
   t: (key: string) => string;
+  onBookService: (serviceName: string, isFleet?: boolean) => void;
+  isFleet?: boolean;
 }) => (
   <CardSpotlight
     className={`h-full ${
@@ -40,14 +47,27 @@ const PricingTier = ({
           </li>
         ))}
       </ul>
-      <Button className="button-gradient w-full">
-        {t("pricing.bookService")}
+      <Button 
+        className="button-gradient w-full"
+        onClick={() => onBookService(name, isFleet)}
+      >
+        {isFleet ? "Book a Call" : "Get Quote"}
       </Button>
     </div>
   </CardSpotlight>
 );
+
 export const PricingSection = () => {
   const { t } = useLanguage();
+  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [isFleetService, setIsFleetService] = useState(false);
+
+  const handleBookService = (serviceName: string, isFleet: boolean = false) => {
+    setSelectedService(serviceName);
+    setIsFleetService(isFleet);
+    setIsBookingDialogOpen(true);
+  };
 
   return (
     <section className="container px-4 py-24">
@@ -91,50 +111,67 @@ export const PricingSection = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <PricingTier
-          name={t("pricing.basic.name")}
-          price={t("pricing.basic.price")}
-          description={t("pricing.basic.description")}
-          features={[
-            t("pricing.basic.feature1"),
-            t("pricing.basic.feature2"),
-            t("pricing.basic.feature3"),
-            t("pricing.basic.feature4"),
-          ]}
-          t={t}
-        />
-        <PricingTier
-          name={t("pricing.premium.name")}
-          price={t("pricing.premium.price")}
-          description={t("pricing.premium.description")}
-          features={[
-            t("pricing.premium.feature1"),
-            t("pricing.premium.feature2"),
-            t("pricing.premium.feature3"),
-            t("pricing.premium.feature4"),
-            t("pricing.premium.feature5"),
-            t("pricing.premium.feature6"),
-          ]}
-          isPopular
-          t={t}
-        />
-        <PricingTier
-          name={t("pricing.fleet.name")}
-          price={t("pricing.fleet.price")}
-          description={t("pricing.fleet.description")}
-          features={[
-            t("pricing.fleet.feature1"),
-            t("pricing.fleet.feature2"),
-            t("pricing.fleet.feature3"),
-            t("pricing.fleet.feature4"),
-            t("pricing.fleet.feature5"),
-            t("pricing.fleet.feature6"),
-            t("pricing.fleet.feature7"),
-            t("pricing.fleet.feature8"),
-          ]}
-          t={t}
-        />
+        <div className="md:col-span-1 md:max-w-[650px] mx-auto md:mx-0 w-full">
+          <PricingTier
+            name={t("pricing.basic.name")}
+            price={t("pricing.basic.price")}
+            description={t("pricing.basic.description")}
+            features={[
+              t("pricing.basic.feature1"),
+              t("pricing.basic.feature2"),
+              t("pricing.basic.feature3"),
+              t("pricing.basic.feature4"),
+            ]}
+            t={t}
+            onBookService={handleBookService}
+          />
+        </div>
+        <div className="md:col-span-1 md:max-w-[650px] mx-auto md:mx-0 w-full">
+          <PricingTier
+            name={t("pricing.premium.name")}
+            price={t("pricing.premium.price")}
+            description={t("pricing.premium.description")}
+            features={[
+              t("pricing.premium.feature1"),
+              t("pricing.premium.feature2"),
+              t("pricing.premium.feature3"),
+              t("pricing.premium.feature4"),
+              t("pricing.premium.feature5"),
+              t("pricing.premium.feature6"),
+            ]}
+            isPopular
+            t={t}
+            onBookService={handleBookService}
+          />
+        </div>
+        <div className="md:col-span-1 w-full">
+          <PricingTier
+            name={t("pricing.fleet.name")}
+            price={t("pricing.fleet.price")}
+            description={t("pricing.fleet.description")}
+            features={[
+              t("pricing.fleet.feature1"),
+              t("pricing.fleet.feature2"),
+              t("pricing.fleet.feature3"),
+              t("pricing.fleet.feature4"),
+              t("pricing.fleet.feature5"),
+              t("pricing.fleet.feature6"),
+              t("pricing.fleet.feature7"),
+              t("pricing.fleet.feature8"),
+            ]}
+            t={t}
+            onBookService={handleBookService}
+            isFleet={true}
+          />
+        </div>
       </div>
+
+      <BookingDialog
+        open={isBookingDialogOpen}
+        onOpenChange={setIsBookingDialogOpen}
+        fixedServiceType={selectedService}
+        isFleetService={isFleetService}
+      />
     </section>
   );
 };

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Phone, Car, MapPin } from "lucide-react";
+import { User, Phone, MapPin, Droplets, Settings } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Dialog,
@@ -15,30 +15,44 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { VehicleSelector } from "@/components/VehicleSelector";
+import { OilSelector } from "@/components/OilSelector";
+import { FilterQualitySelector } from "@/components/FilterQualitySelector";
 
 interface BookingDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  fixedServiceType?: string | null;
+  isFleetService?: boolean;
 }
 
-const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
+const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }: BookingDialogProps) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     vehicleModel: "",
-    serviceType: "",
-    preferredDate: "",
-    preferredTime: "",
+    preferredOil: "",
+    filterQuality: "",
+    serviceType: fixedServiceType || "",
     notes: ""
   });
   const { toast } = useToast();
   const { t } = useLanguage();
 
+  // Update form data when fixedServiceType changes
+  useEffect(() => {
+    if (fixedServiceType) {
+      setFormData(prev => ({ ...prev, serviceType: fixedServiceType }));
+    }
+  }, [fixedServiceType]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.phone || !formData.vehicleModel || !formData.serviceType) {
+    if (!formData.name || !formData.phone || 
+        (!formData.serviceType && !fixedServiceType) ||
+        (!isFleetService && (!formData.vehicleModel))) {
       toast({
         title: t('booking.missingInfo'),
         description: t('booking.fillFields'),
@@ -58,9 +72,9 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
       name: "",
       phone: "",
       vehicleModel: "",
-      serviceType: "",
-      preferredDate: "",
-      preferredTime: "",
+      preferredOil: "",
+      filterQuality: "",
+      serviceType: fixedServiceType || "",
       notes: ""
     });
     onOpenChange(false);
@@ -72,17 +86,17 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white">
+      <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-gradient">
-            {t('booking.title')}
+            {isFleetService ? t('booking.title') : "Get a Quote"}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            {t('booking.subtitle')}
+            {isFleetService ? t('booking.subtitle') : "Request a quote for our professional services"}
           </DialogDescription>
         </DialogHeader>
 
-        <motion.form
+                <motion.form
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
@@ -121,79 +135,56 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
             </div>
           </div>
 
-          {/* Vehicle Information */}
-          <div className="space-y-2">
-            <Label htmlFor="vehicle" className="text-sm font-medium flex items-center gap-2">
-              <Car className="w-4 h-4 text-primary" />
-              {t('booking.vehicleModel')} {t('booking.required')}
-            </Label>
-            <Input
-              id="vehicle"
-              value={formData.vehicleModel}
-              onChange={(e) => handleInputChange("vehicleModel", e.target.value)}
-              placeholder="e.g., Toyota Camry 2020"
-              className="glass border-white/20 bg-white/5 text-white placeholder:text-gray-400"
-              required
-            />
-          </div>
+          {/* Vehicle Information - Only for non-Fleet services */}
+          {!isFleetService && (
+            <div className="space-y-2">
+              <VehicleSelector 
+                onVehicleSelect={(vehicle) => handleInputChange("vehicleModel", vehicle)}
+                initialValue={formData.vehicleModel}
+              />
+            </div>
+          )}
+
+          {/* Oil and Filter Selection - Only for non-Fleet services */}
+          {!isFleetService && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <OilSelector 
+                  onOilSelect={(oil) => handleInputChange("preferredOil", oil)}
+                  initialValue={formData.preferredOil}
+                />
+              </div>
+              <div className="space-y-2">
+                <FilterQualitySelector 
+                  onFilterSelect={(filter) => handleInputChange("filterQuality", filter)}
+                  initialValue={formData.filterQuality}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Service Type */}
           <div className="space-y-2">
             <Label className="text-sm font-medium flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />
-              {t('booking.serviceType')} {t('booking.required')}
+              {t('booking.serviceType')} {fixedServiceType ? "" : t('booking.required')}
             </Label>
-            <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
-              <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
-                <SelectValue placeholder={t('booking.selectService')} />
-              </SelectTrigger>
-              <SelectContent className="glass border-white/20 bg-[#0A0A0A] text-white">
-                <SelectItem value="basic">{t('pricing.basic.name')} ({t('pricing.basic.price')})</SelectItem>
-                <SelectItem value="premium">{t('pricing.premium.name')} ({t('pricing.premium.price')})</SelectItem>
-                <SelectItem value="custom">{t('pricing.fleet.name')} ({t('pricing.fleet.price')})</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Preferred Date & Time */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="date" className="text-sm font-medium flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-primary" />
-                {t('booking.preferredDate')}
-              </Label>
-              <Input
-                id="date"
-                type="date"
-                value={formData.preferredDate}
-                onChange={(e) => handleInputChange("preferredDate", e.target.value)}
-                className="glass border-white/20 bg-white/5 text-white"
-                min={new Date().toISOString().split('T')[0]}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-sm font-medium flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary" />
-                {t('booking.preferredTime')}
-              </Label>
-              <Select value={formData.preferredTime} onValueChange={(value) => handleInputChange("preferredTime", value)}>
+            {fixedServiceType ? (
+              <div className="glass border-white/20 bg-white/5 text-white p-3 rounded-md">
+                {fixedServiceType}
+              </div>
+            ) : (
+              <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
                 <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
-                  <SelectValue placeholder={t('booking.selectTime')} />
+                  <SelectValue placeholder={t('booking.selectService')} />
                 </SelectTrigger>
                 <SelectContent className="glass border-white/20 bg-[#0A0A0A] text-white">
-                  <SelectItem value="8:00">8:00 AM</SelectItem>
-                  <SelectItem value="9:00">9:00 AM</SelectItem>
-                  <SelectItem value="10:00">10:00 AM</SelectItem>
-                  <SelectItem value="11:00">11:00 AM</SelectItem>
-                  <SelectItem value="12:00">12:00 PM</SelectItem>
-                  <SelectItem value="13:00">1:00 PM</SelectItem>
-                  <SelectItem value="14:00">2:00 PM</SelectItem>
-                  <SelectItem value="15:00">3:00 PM</SelectItem>
-                  <SelectItem value="16:00">4:00 PM</SelectItem>
-                  <SelectItem value="17:00">5:00 PM</SelectItem>
+                  <SelectItem value="basic">{t('pricing.basic.name')} ({t('pricing.basic.price')})</SelectItem>
+                  <SelectItem value="premium">{t('pricing.premium.name')} ({t('pricing.premium.price')})</SelectItem>
+                  <SelectItem value="custom">{t('pricing.fleet.name')} ({t('pricing.fleet.price')})</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
+            )}
           </div>
 
           {/* Additional Notes */}
@@ -222,7 +213,7 @@ const BookingDialog = ({ open, onOpenChange }: BookingDialogProps) => {
               className="w-full button-gradient text-white font-medium"
               size="lg"
             >
-              {t('booking.confirmBooking')}
+              {isFleetService ? "Book a Call" : "Get Quote"}
             </Button>
           </motion.div>
         </motion.form>
