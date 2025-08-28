@@ -20,7 +20,7 @@ export const TextGenerateEffect = ({
       ease: [0.25, 0.46, 0.45, 0.94], // Smooth cubic-bezier easing
     });
     return controls.stop;
-  }, [words]);
+  }, [count, words]);
 
   return <motion.span className={className}>{displayText}</motion.span>;
 };

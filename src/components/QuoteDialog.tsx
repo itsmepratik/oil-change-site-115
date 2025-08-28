@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import * as React from "react";
 import { motion } from "framer-motion";
-import { User, Phone, MapPin, Droplets, Settings } from "lucide-react";
+import { User, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Dialog,
@@ -19,40 +20,37 @@ import { VehicleSelector } from "@/components/VehicleSelector";
 import { OilSelector } from "@/components/OilSelector";
 import { FilterQualitySelector } from "@/components/FilterQualitySelector";
 
-interface BookingDialogProps {
+interface QuoteDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  fixedServiceType?: string | null;
-  isFleetService?: boolean;
+  preSelectedService?: string;
 }
 
-const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }: BookingDialogProps) => {
+const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProps) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     vehicleModel: "",
     preferredOil: "",
     filterQuality: "",
-    serviceType: fixedServiceType || "",
+    serviceType: preSelectedService || "",
     notes: ""
   });
+
+  // Update service type when preSelectedService changes
+  React.useEffect(() => {
+    if (preSelectedService) {
+      setFormData(prev => ({ ...prev, serviceType: preSelectedService }));
+    }
+  }, [preSelectedService]);
   const { toast } = useToast();
   const { t } = useLanguage();
-
-  // Update form data when fixedServiceType changes
-  useEffect(() => {
-    if (fixedServiceType) {
-      setFormData(prev => ({ ...prev, serviceType: fixedServiceType }));
-    }
-  }, [fixedServiceType]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.phone || 
-        (!formData.serviceType && !fixedServiceType) ||
-        (!isFleetService && (!formData.vehicleModel))) {
+    if (!formData.name || !formData.phone || !formData.vehicleModel || !formData.serviceType) {
       toast({
         title: t('booking.missingInfo'),
         description: t('booking.fillFields'),
@@ -61,10 +59,10 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
       return;
     }
 
-    // Simulate booking submission
+    // Simulate quote submission
     toast({
-      title: t('booking.confirmed'),
-      description: t('booking.contactShortly'),
+      title: "Quote Request Submitted",
+      description: "We'll send you a detailed quote within 24 hours",
     });
 
     // Reset form and close dialog
@@ -74,7 +72,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
       vehicleModel: "",
       preferredOil: "",
       filterQuality: "",
-      serviceType: fixedServiceType || "",
+      serviceType: preSelectedService || "",
       notes: ""
     });
     onOpenChange(false);
@@ -89,10 +87,10 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
       <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-gradient">
-            {isFleetService ? t('booking.title') : "Get a Quote"}
+            Get a Quote
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            {isFleetService ? t('booking.subtitle') : "Request a quote for our professional services"}
+            Tell us about your vehicle and we'll provide you with a detailed quote
           </DialogDescription>
         </DialogHeader>
 
@@ -135,56 +133,45 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
             </div>
           </div>
 
-          {/* Vehicle Information - Only for non-Fleet services */}
-          {!isFleetService && (
+          {/* Vehicle Information */}
+          <div className="space-y-2">
+            <VehicleSelector 
+              onVehicleSelect={(vehicle) => handleInputChange("vehicleModel", vehicle)}
+              initialValue={formData.vehicleModel}
+            />
+          </div>
+
+          {/* Oil and Filter Selection */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <VehicleSelector 
-                onVehicleSelect={(vehicle) => handleInputChange("vehicleModel", vehicle)}
-                initialValue={formData.vehicleModel}
+              <OilSelector 
+                onOilSelect={(oil) => handleInputChange("preferredOil", oil)}
+                initialValue={formData.preferredOil}
               />
             </div>
-          )}
-
-          {/* Oil and Filter Selection - Only for non-Fleet services */}
-          {!isFleetService && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <OilSelector 
-                  onOilSelect={(oil) => handleInputChange("preferredOil", oil)}
-                  initialValue={formData.preferredOil}
-                />
-              </div>
-              <div className="space-y-2">
-                <FilterQualitySelector 
-                  onFilterSelect={(filter) => handleInputChange("filterQuality", filter)}
-                  initialValue={formData.filterQuality}
-                />
-              </div>
+            <div className="space-y-2">
+              <FilterQualitySelector 
+                onFilterSelect={(filter) => handleInputChange("filterQuality", filter)}
+                initialValue={formData.filterQuality}
+              />
             </div>
-          )}
+          </div>
 
           {/* Service Type */}
           <div className="space-y-2">
             <Label className="text-sm font-medium flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />
-              {t('booking.serviceType')} {fixedServiceType ? "" : t('booking.required')}
+              {t('booking.serviceType')} {t('booking.required')}
             </Label>
-            {fixedServiceType ? (
-              <div className="glass border-white/20 bg-white/5 text-white p-3 rounded-md">
-                {fixedServiceType}
-              </div>
-            ) : (
-              <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
-                <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
-                  <SelectValue placeholder={t('booking.selectService')} />
-                </SelectTrigger>
-                <SelectContent className="glass border-white/20 bg-[#0A0A0A] text-white">
-                  <SelectItem value="basic">{t('pricing.basic.name')} ({t('pricing.basic.price')})</SelectItem>
-                  <SelectItem value="premium">{t('pricing.premium.name')} ({t('pricing.premium.price')})</SelectItem>
-                  <SelectItem value="custom">{t('pricing.fleet.name')} ({t('pricing.fleet.price')})</SelectItem>
-                </SelectContent>
-              </Select>
-            )}
+            <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
+              <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
+                <SelectValue placeholder={t('booking.selectService')} />
+              </SelectTrigger>
+              <SelectContent className="glass border-white/20 bg-[#0A0A0A] text-white">
+                <SelectItem value="basic">{t('pricing.basic.name')} ({t('pricing.basic.price')})</SelectItem>
+                <SelectItem value="premium">{t('pricing.premium.name')} ({t('pricing.premium.price')})</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Additional Notes */}
@@ -213,7 +200,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
               className="w-full button-gradient text-white font-medium"
               size="lg"
             >
-              {isFleetService ? "Book a Call" : "Get Quote"}
+              Get Quote
             </Button>
           </motion.div>
         </motion.form>
@@ -222,4 +209,4 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
   );
 };
 
-export default BookingDialog;
+export default QuoteDialog;

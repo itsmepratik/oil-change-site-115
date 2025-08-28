@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CardSpotlight } from "./CardSpotlight";
+import QuoteDialog from "@/components/QuoteDialog";
 import BookingDialog from "@/components/BookingDialog";
 
 const PricingTier = ({
@@ -47,7 +48,7 @@ const PricingTier = ({
           </li>
         ))}
       </ul>
-      <Button 
+      <Button
         className="button-gradient w-full"
         onClick={() => onBookService(name, isFleet)}
       >
@@ -59,6 +60,7 @@ const PricingTier = ({
 
 export const PricingSection = () => {
   const { t } = useLanguage();
+  const [isQuoteDialogOpen, setIsQuoteDialogOpen] = useState(false);
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [isFleetService, setIsFleetService] = useState(false);
@@ -66,7 +68,11 @@ export const PricingSection = () => {
   const handleBookService = (serviceName: string, isFleet: boolean = false) => {
     setSelectedService(serviceName);
     setIsFleetService(isFleet);
-    setIsBookingDialogOpen(true);
+    if (isFleet) {
+      setIsBookingDialogOpen(true);
+    } else {
+      setIsQuoteDialogOpen(true);
+    }
   };
 
   return (
@@ -165,6 +171,12 @@ export const PricingSection = () => {
           />
         </div>
       </div>
+
+      <QuoteDialog
+        open={isQuoteDialogOpen}
+        onOpenChange={setIsQuoteDialogOpen}
+        preSelectedService={selectedService}
+      />
 
       <BookingDialog
         open={isBookingDialogOpen}
