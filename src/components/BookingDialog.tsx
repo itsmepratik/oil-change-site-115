@@ -24,9 +24,10 @@ interface BookingDialogProps {
   onOpenChange: (open: boolean) => void;
   fixedServiceType?: string | null;
   isFleetService?: boolean;
+  allowServiceTypeSelection?: boolean;
 }
 
-const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }: BookingDialogProps) => {
+const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, allowServiceTypeSelection = false }: BookingDialogProps) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -86,7 +87,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white">
+      <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white w-[95.5%] rounded-xl p-4 sm:p-6">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-gradient">
             {isFleetService ? t('booking.title') : "Get a Quote"}
@@ -148,13 +149,13 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
           {/* Oil and Filter Selection - Only for non-Fleet services */}
           {!isFleetService && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
+              <div>
                 <OilSelector 
                   onOilSelect={(oil) => handleInputChange("preferredOil", oil)}
                   initialValue={formData.preferredOil}
                 />
               </div>
-              <div className="space-y-2">
+              <div>
                 <FilterQualitySelector 
                   onFilterSelect={(filter) => handleInputChange("filterQuality", filter)}
                   initialValue={formData.filterQuality}
@@ -167,13 +168,19 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
           <div className="space-y-2">
             <Label className="text-sm font-medium flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />
-              {t('booking.serviceType')} {fixedServiceType ? "" : t('booking.required')}
+              {t('booking.serviceType')} {(!fixedServiceType && !allowServiceTypeSelection) ? t('booking.required') : ""}
             </Label>
             {fixedServiceType ? (
               <div className="glass border-white/20 bg-white/5 text-white p-3 rounded-md">
-                {fixedServiceType}
+                {fixedServiceType === "basic" 
+                  ? `${t('pricing.basic.name')} (${t('pricing.basic.price')})`
+                  : fixedServiceType === "premium" 
+                  ? `${t('pricing.premium.name')} (${t('pricing.premium.price')})`
+                  : fixedServiceType === "custom"
+                  ? `${t('pricing.fleet.name')} (${t('pricing.fleet.price')})`
+                  : fixedServiceType}
               </div>
-            ) : (
+            ) : allowServiceTypeSelection ? (
               <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
                 <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
                   <SelectValue placeholder={t('booking.selectService')} />
@@ -184,6 +191,10 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService }:
                   <SelectItem value="custom">{t('pricing.fleet.name')} ({t('pricing.fleet.price')})</SelectItem>
                 </SelectContent>
               </Select>
+            ) : (
+              <div className="glass border-white/20 bg-white/5 text-white p-3 rounded-md">
+                Service type not selected
+              </div>
             )}
           </div>
 

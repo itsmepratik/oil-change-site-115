@@ -103,8 +103,7 @@ export const FeatureContent = ({
         transition={{ duration: 0.5 }}
         className="h-full flex items-center justify-center"
       >
-        <div className="glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+        <div className="glass rounded-xl overflow-hidden w-full max-w-md mx-auto">
           <div className="w-full h-full bg-muted/20 animate-pulse rounded-lg" />
         </div>
       </motion.div>
@@ -128,9 +127,7 @@ export const FeatureContent = ({
             <ChevronLeft className="w-8 h-8" />
           </button>
 
-          <div className="glass rounded-xl overflow-hidden max-w-md relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-            
+          <div className="glass rounded-xl overflow-hidden max-w-md">
             <div className="embla" ref={emblaRefDesktop}>
               <div className="embla__container flex">
                 {imageArray.map((imgSrc, index) => (
@@ -138,7 +135,7 @@ export const FeatureContent = ({
                   <motion.img
                     src={imgSrc}
                     alt={title}
-                    className="w-full h-full object-cover object-center relative z-10 rounded-lg"
+                    className="w-full h-full object-cover object-center rounded-lg"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -160,12 +157,11 @@ export const FeatureContent = ({
 
       {/* Single Image (No Multiple Images) */}
       {!hasMultipleImages && (
-        <div className="glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+        <div className="rounded-xl overflow-hidden w-full max-w-md mx-auto">
         <motion.img
           src={imageArray[0]}
           alt={title}
-          className="w-full h-full object-cover object-center relative z-10 rounded-lg"
+          className="w-full h-full object-cover object-center rounded-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -175,8 +171,7 @@ export const FeatureContent = ({
 
       {/* Mobile View (With Multiple Images) */}
       {hasMultipleImages && (
-        <div className="md:hidden glass rounded-xl overflow-hidden w-full max-w-md mx-auto relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+        <div className="md:hidden rounded-xl overflow-hidden w-full max-w-md mx-auto">
 
           <div className="embla" ref={emblaRefMobile}>
             <div className="embla__container flex">
@@ -185,7 +180,7 @@ export const FeatureContent = ({
                   <motion.img
                     src={imgSrc}
                     alt={title}
-                    className="w-full h-full object-cover object-center relative z-10 rounded-lg"
+                    className="w-full h-full object-cover object-center rounded-lg"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -193,19 +188,6 @@ export const FeatureContent = ({
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Mobile Touch Navigation Dots */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-            {imageArray.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToMobile(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === current ? "bg-white" : "bg-white/50"
-                }`}
-              />
-            ))}
           </div>
         </div>
       )}

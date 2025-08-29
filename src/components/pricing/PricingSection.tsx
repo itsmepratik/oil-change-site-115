@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CardSpotlight } from "./CardSpotlight";
@@ -52,7 +52,14 @@ const PricingTier = ({
         className="button-gradient w-full"
         onClick={() => onBookService(name, isFleet)}
       >
-        {isFleet ? "Book a Call" : "Get Quote"}
+        {isFleet ? (
+          <span className="flex items-center justify-center gap-2">
+            <Phone className="w-4 h-4" />
+            Book a Call
+          </span>
+        ) : (
+          "Get Quote"
+        )}
       </Button>
     </div>
   </CardSpotlight>

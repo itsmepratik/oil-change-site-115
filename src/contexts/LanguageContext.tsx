@@ -15,6 +15,7 @@ const translations = {
     "nav.services": "Services",
     "nav.pricing": "Pricing",
     "nav.reviews": "Reviews",
+    "nav.contact": "Contact",
     "nav.bookService": "Book Service",
 
     // Hero Section
@@ -129,12 +130,33 @@ const translations = {
     "footer.terms": "Terms of Service",
     "footer.contact": "Contact",
     "footer.copyright": "© 2024 HNS Automotive. All rights reserved.",
+
+    // Contact Page
+    "contact.title": "Get in",
+    "contact.titleHighlight": "Touch",
+    "contact.subtitle": "Have questions or want to book a service? Reach out to us and we'll get back to you as soon as possible.",
+    "contact.getInTouch": "Get in Touch",
+    "contact.location": "Location",
+    "contact.phone": "Phone",
+    "contact.email": "Email",
+    "contact.hours": "Working Hours",
+    "contact.hoursDetail": "Saturday - Thursday: 8:00 AM - 6:00 PM",
+    "contact.sendMessage": "Send us a Message",
+    "contact.fullName": "Full Name",
+    "contact.required": "*",
+    "contact.namePlaceholder": "Enter your full name",
+    "contact.emailPlaceholder": "your.email@example.com",
+    "contact.phonePlaceholder": "+968 XXX XXX XXX",
+    "contact.message": "Message",
+    "contact.messagePlaceholder": "How can we help you?",
+    "contact.sendButton": "Send Message",
   },
   ar: {
     // Navigation
     "nav.services": "الخدمات",
     "nav.pricing": "الأسعار",
     "nav.reviews": "التقييمات",
+    "nav.contact": "اتصل بنا",
     "nav.bookService": "احجز الخدمة",
 
     // Hero Section
@@ -242,6 +264,26 @@ const translations = {
     "footer.terms": "شروط الخدمة",
     "footer.contact": "اتصل",
     "footer.copyright": "© ٢٠٢٤ هـ ن س للسيارات. جميع الحقوق محفوظة.",
+
+    // Contact Page
+    "contact.title": "تواصل",
+    "contact.titleHighlight": "معنا",
+    "contact.subtitle": "هل لديك أسئلة أو تريد حجز خدمة؟ تواصل معنا وسنعود إليك في أقرب وقت ممكن.",
+    "contact.getInTouch": "تواصل معنا",
+    "contact.location": "الموقع",
+    "contact.phone": "الهاتف",
+    "contact.email": "البريد الإلكتروني",
+    "contact.hours": "ساعات العمل",
+    "contact.hoursDetail": "السبت - الخميس: 8:00 صباحاً - 6:00 مساءً",
+    "contact.sendMessage": "أرسل لنا رسالة",
+    "contact.fullName": "الاسم الكامل",
+    "contact.required": "*",
+    "contact.namePlaceholder": "أدخل اسمك الكامل",
+    "contact.emailPlaceholder": "your.email@example.com",
+    "contact.phonePlaceholder": "+968 XXX XXX XXX",
+    "contact.message": "الرسالة",
+    "contact.messagePlaceholder": "كيف يمكننا مساعدتك؟",
+    "contact.sendButton": "إرسال الرسالة",
   },
 };
 

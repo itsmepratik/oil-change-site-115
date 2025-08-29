@@ -84,7 +84,7 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white">
+      <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto border border-white/20 bg-[#0A0A0A] text-white w-[95.5%] rounded-xl p-4 sm:p-6">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-gradient">
             Get a Quote
@@ -143,13 +143,13 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
 
           {/* Oil and Filter Selection */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
+            <div>
               <OilSelector 
                 onOilSelect={(oil) => handleInputChange("preferredOil", oil)}
                 initialValue={formData.preferredOil}
               />
             </div>
-            <div className="space-y-2">
+            <div>
               <FilterQualitySelector 
                 onFilterSelect={(filter) => handleInputChange("filterQuality", filter)}
                 initialValue={formData.filterQuality}
@@ -163,15 +163,13 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
               <MapPin className="w-4 h-4 text-primary" />
               {t('booking.serviceType')} {t('booking.required')}
             </Label>
-            <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
-              <SelectTrigger className="glass border-white/20 bg-white/5 text-white">
-                <SelectValue placeholder={t('booking.selectService')} />
-              </SelectTrigger>
-              <SelectContent className="glass border-white/20 bg-[#0A0A0A] text-white">
-                <SelectItem value="basic">{t('pricing.basic.name')} ({t('pricing.basic.price')})</SelectItem>
-                <SelectItem value="premium">{t('pricing.premium.name')} ({t('pricing.premium.price')})</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="glass border-white/20 bg-white/5 text-white p-3 rounded-md">
+              {preSelectedService === "basic" 
+                ? `${t('pricing.basic.name')} (${t('pricing.basic.price')})`
+                : preSelectedService === "premium" 
+                ? `${t('pricing.premium.name')} (${t('pricing.premium.price')})`
+                : preSelectedService}
+            </div>
           </div>
 
           {/* Additional Notes */}

@@ -245,8 +245,7 @@ const Index = () => {
             size="lg"
             className="button-gradient"
             onClick={() => {
-              console.log("CTA button clicked");
-              setIsBookingDialogOpen(true);
+              window.location.href = "/contact";
             }}
           >
             {t("cta.contactUs")}
@@ -263,6 +262,7 @@ const Index = () => {
       <BookingDialog
         open={isBookingDialogOpen}
         onOpenChange={setIsBookingDialogOpen}
+        allowServiceTypeSelection={true}
       />
     </div>
   );

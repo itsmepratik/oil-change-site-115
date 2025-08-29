@@ -33,18 +33,18 @@ export const FilterQualitySelector = ({ onFilterSelect, initialValue }: FilterQu
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {displayValue ? (
         <div className="flex items-center justify-between glass border border-white/20 bg-white/5 p-3 rounded-md">
-          <div className="flex items-center gap-2">
-            <Settings className="w-4 h-4 text-primary" />
-            <span>{displayValue}</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <Settings className="w-4 h-4 text-primary flex-shrink-0" />
+            <span className="truncate">{displayValue}</span>
           </div>
           <Button 
             variant="ghost" 
             size="sm" 
             onClick={resetSelection}
-            className="text-xs h-6 px-2"
+            className="text-xs h-6 px-2 flex-shrink-0"
           >
             Change
           </Button>

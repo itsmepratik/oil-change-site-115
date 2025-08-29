@@ -90,7 +90,7 @@ export const FeaturesSection = () => {
           <div key={feature.title} className="glass rounded-xl overflow-hidden">
             {/* Service Card */}
             <div
-              className="p-4 cursor-pointer flex items-center justify-between hover:bg-white/5 transition-colors"
+              className="p-4 cursor-pointer flex items-center justify-between"
               onClick={() => toggleMobileExpansion(feature.title)}
             >
               <div className="flex items-center space-x-3">
@@ -113,11 +113,13 @@ export const FeaturesSection = () => {
                   className="overflow-hidden"
                 >
                   <div className="p-4 pt-0">
-                    <FeatureContent
-                      image={feature.image}
-                      images={feature.images}
-                      title={feature.title}
-                    />
+                    <div className="rounded-xl overflow-hidden">
+                      <FeatureContent
+                        image={feature.image}
+                        images={feature.images}
+                        title={feature.title}
+                      />
+                    </div>
                   </div>
                 </motion.div>
               )}

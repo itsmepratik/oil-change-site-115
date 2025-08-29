@@ -48,6 +48,7 @@ const Navigation = () => {
     { name: t('nav.services'), href: "#features", onClick: () => scrollToSection('features') },
     { name: t('nav.pricing'), href: "#pricing", onClick: () => scrollToSection('pricing') },
     { name: t('nav.reviews'), href: "#testimonials", onClick: () => scrollToSection('testimonials') },
+    { name: t('nav.contact'), href: "/contact" },
   ];
 
   return (
@@ -62,7 +63,9 @@ const Navigation = () => {
         <nav className="flex items-center justify-between h-full">
           <div className="flex items-center gap-2">
             <Command className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">HNS Automotive</span>
+            <span className="font-bold text-base">
+              {isScrolled ? "HNS" : "HNS Automotive"}
+            </span>
           </div>
 
           {/* Desktop Navigation */}
@@ -72,6 +75,10 @@ const Navigation = () => {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => {
+                  if (item.href.startsWith("/")) {
+                    // For internal links, let the browser handle it normally
+                    return;
+                  }
                   e.preventDefault();
                   if (item.onClick) {
                     item.onClick();
@@ -103,7 +110,7 @@ const Navigation = () => {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent className="bg-[#1B1B1B]">
+              <SheetContent className="bg-[#1B1B1B] w-[95.5%] rounded-r-xl p-4">
                 <div className="flex flex-col gap-4 mt-8">
                   {navItems.map((item) => (
                     <a
@@ -115,6 +122,8 @@ const Navigation = () => {
                         setIsMobileMenuOpen(false);
                         if (item.onClick) {
                           item.onClick();
+                        } else {
+                          window.location.href = item.href;
                         }
                       }}
                     >
@@ -143,6 +152,7 @@ const Navigation = () => {
       <BookingDialog 
         open={isBookingDialogOpen} 
         onOpenChange={setIsBookingDialogOpen} 
+        allowServiceTypeSelection={true}
       />
     </header>
   );
