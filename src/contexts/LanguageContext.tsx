@@ -129,12 +129,13 @@ const translations = {
     "footer.privacy": "Privacy Policy",
     "footer.terms": "Terms of Service",
     "footer.contact": "Contact",
-    "footer.copyright": "© 2024 HNS Automotive. All rights reserved.",
+    "footer.copyright": "© 2025 HNS Automotive. All rights reserved.",
 
     // Contact Page
     "contact.title": "Get in",
     "contact.titleHighlight": "Touch",
-    "contact.subtitle": "Have questions or want to book a service? Reach out to us and we'll get back to you as soon as possible.",
+    "contact.subtitle":
+      "Have questions or want to book a service? Reach out to us and we'll get back to you as soon as possible.",
     "contact.getInTouch": "Get in Touch",
     "contact.location": "Location",
     "contact.phone": "Phone",
@@ -268,7 +269,8 @@ const translations = {
     // Contact Page
     "contact.title": "تواصل",
     "contact.titleHighlight": "معنا",
-    "contact.subtitle": "هل لديك أسئلة أو تريد حجز خدمة؟ تواصل معنا وسنعود إليك في أقرب وقت ممكن.",
+    "contact.subtitle":
+      "هل لديك أسئلة أو تريد حجز خدمة؟ تواصل معنا وسنعود إليك في أقرب وقت ممكن.",
     "contact.getInTouch": "تواصل معنا",
     "contact.location": "الموقع",
     "contact.phone": "الهاتف",
