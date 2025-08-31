@@ -3,7 +3,6 @@ import { Command, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { useLanguage } from "@/contexts/LanguageContext";
-import LanguageToggle from "./LanguageToggle";
 import BookingDialog from "./BookingDialog";
 
 const Navigation = () => {
@@ -89,7 +88,6 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <LanguageToggle />
             <Button 
               onClick={() => {
                 console.log("Nav button clicked");
@@ -131,7 +129,6 @@ const Navigation = () => {
                     </a>
                   ))}
                   <div className="mt-4 space-y-4">
-                    <LanguageToggle />
                     <Button 
                       onClick={() => {
                         setIsMobileMenuOpen(false);

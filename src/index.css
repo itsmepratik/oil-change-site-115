@@ -52,7 +52,7 @@
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 4%;
     --popover-foreground: 0 0% 100%;
-    --primary: 142 84% 58%;
+    --primary: 30 100% 50%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 9%;
     --secondary-foreground: 0 0% 100%;
@@ -64,7 +64,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 12%;
     --input: 0 0% 12%;
-    --ring: 142 84% 58%;
+    --ring: 30 100% 50%;
     --radius: 0.75rem;
   }
 }
@@ -107,13 +107,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #84cc16, #22c55e);
+    background: linear-gradient(180deg, #FF8A00, #FF5500);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #a3e635, #34d399);
+    background: linear-gradient(180deg, #FFA500, #FF7800);
   }
 }
 
@@ -142,8 +142,13 @@
   pointer-events: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
   font-weight: 700 !important;
+  letter-spacing: normal !important;
+}
+
+h2, h3, h4, h5, h6 {
+  font-weight: 600 !important;
   letter-spacing: normal !important;
 }
 
@@ -161,9 +166,13 @@ button {
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#22c55e];
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#FF5500];
 }
 
 .button-gradient {
-  @apply bg-gradient-to-r from-primary to-[#22c55e] hover:opacity-90 transition-opacity rounded-full;
+  @apply bg-gradient-to-r from-primary to-[#FF5500] hover:opacity-90 transition-opacity rounded-full;
+}
+
+:root {
+  --primary-glow: #FF5500;
 }

@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import LanguageSelectionModal from "@/components/LanguageSelectionModal";
 import Index from "./pages/Index";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -13,7 +14,19 @@ import Contact from "./pages/Contact";
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [languageSelected, setLanguageSelected] = useState(false);
+
   useEffect(() => {
+    // For testing: uncomment to reset language selection
+    // localStorage.removeItem('language-selected');
+    // localStorage.removeItem('preferred-language');
+    
+    // Check if user has previously selected a language
+    const hasSelectedLanguage = localStorage.getItem('language-selected');
+    if (hasSelectedLanguage) {
+      setLanguageSelected(true);
+    }
+
     // Enhanced smooth scrolling for anchor links
     const handleAnchorClick = (e: Event) => {
       const target = e.target as HTMLAnchorElement;
@@ -53,6 +66,7 @@ const App = () => {
           <div className="min-h-screen bg-background">
             <Toaster />
             <Sonner />
+            <LanguageSelectionModal onLanguageSelected={() => setLanguageSelected(true)} />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />

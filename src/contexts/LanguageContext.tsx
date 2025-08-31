@@ -296,7 +296,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [language, setLanguage] = useState<Language>("en");
+  // Initialize with saved preference or default to English
+  const [language, setLanguage] = useState<Language>(() => {
+    const savedLanguage = localStorage.getItem('preferred-language');
+    return (savedLanguage === 'ar' || savedLanguage === 'en') ? savedLanguage : 'en';
+  });
 
   useEffect(() => {
     // Apply direction to document
