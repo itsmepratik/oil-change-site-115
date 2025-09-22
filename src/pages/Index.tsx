@@ -27,7 +27,7 @@ const Index = () => {
     }
   };
   return (
-    <div className="min-h-screen bg-black text-foreground">
+    <div className="min-h-screen text-foreground">
       <Navigation />
 
       {/* Hero Section */}
@@ -43,10 +43,16 @@ const Index = () => {
         transition={{
           duration: 0.5,
         }}
-        className="relative container px-4 pt-40 pb-20"
+        className="relative min-h-screen flex items-center overflow-hidden"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/hero.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
-        {/* Background */}
-        <div className="absolute inset-0 -z-10 bg-[#0A0A0A]" />
+        
+        <div className="container px-4 relative z-10">
 
         <motion.div
           initial={{
@@ -164,29 +170,7 @@ const Index = () => {
             </Button>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            delay: 0.6,
-          }}
-          className="relative mx-auto max-w-5xl mt-20"
-        >
-          <div className="glass rounded-xl overflow-hidden">
-            <img
-              src="/lovable-uploads/c32c6788-5e4a-4fee-afee-604b03113c7f.png"
-              alt="Professional Oil Change Service"
-              className="w-full h-auto"
-            />
-          </div>
-        </motion.div>
+        </div>
       </motion.section>
 
       {/* Logo Carousel */}
