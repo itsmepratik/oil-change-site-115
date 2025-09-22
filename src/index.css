@@ -5,40 +5,40 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2-variations');
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Variable.woff2") format("woff2-variations");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Regular.woff2') format('woff2');
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Medium.woff2') format('woff2');
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -107,13 +107,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #FF8A00, #FF5500);
+    background: linear-gradient(180deg, #ff8a00, #ff5500);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #FFA500, #FF7800);
+    background: linear-gradient(180deg, #ffa500, #ff7800);
   }
 }
 
@@ -147,7 +147,11 @@ h1 {
   letter-spacing: normal !important;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600 !important;
   letter-spacing: normal !important;
 }
@@ -174,5 +178,17 @@ button {
 }
 
 :root {
-  --primary-glow: #FF5500;
+  --primary-glow: #ff5500;
+}
+
+/* Hero image positioning */
+.hero-image-position {
+  object-position: center 30%;
+}
+
+/* Mobile-specific positioning - slightly to the left */
+@media (max-width: 768px) {
+  .hero-image-position {
+    object-position: 30% 30%;
+  }
 }
