@@ -51,134 +51,136 @@ const Index = () => {
             src="/lovable-uploads/hero.png"
             alt="Professional Oil Change Service"
             style={{
-              width: '100vw',
-              height: '100vh',
-              objectFit: 'cover'
+              width: "100vw",
+              height: "100vh",
+              objectFit: "cover",
             }}
             className="absolute top-0 left-0 hero-image-position"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/80" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
+          {/* Gradient overlays positioned at the very bottom to show most of the image */}
+          <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
+          {/* Additional bottom gradient to ensure consistent end effect */}
+          <div className="absolute bottom-0 left-0 right-0 h-1/6 bg-gradient-to-t from-black/70 to-transparent" />
         </div>
-        
+
         <div className="container px-4 relative z-10">
-
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            delay: 0.2,
-          }}
-          className="inline-block mb-4 px-4 py-1.5 rounded-full glass"
-        >
-          <span className="text-sm font-medium">
-            <Command className="w-4 h-4 inline-block mr-2" />
-            {t("hero.badge")}
-          </span>
-        </motion.div>
-
-        <div className="max-w-4xl relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.23, 1, 0.32, 1],
-              delay: 0.3,
-            }}
-            className={`text-5xl font-normal mb-4 tracking-tight md:text-7xl ${
-              dir === "rtl" ? "text-right" : "text-left"
-            }`}
-          >
-            <motion.span
-              className="text-gray-200 inline-block"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                ease: [0.23, 1, 0.32, 1],
-                delay: 0.5,
-              }}
-            >
-              <TextGenerateEffect words={t("hero.title1")} />
-            </motion.span>
-            <motion.br
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.7 }}
-            />
-            <motion.span
-              className="text-white font-medium inline-block"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                ease: [0.23, 1, 0.32, 1],
-                delay: 0.8,
-              }}
-            >
-              <TextGenerateEffect words={t("hero.title2")} />
-            </motion.span>
-          </motion.h1>
-
-          <motion.p
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: 0.4,
-            }}
-            className={`text-lg md:text-xl text-gray-200 mb-8 max-w-2xl ${
-              dir === "rtl" ? "text-right" : "text-left"
-            }`}
-          >
-            {t("hero.description")}{" "}
-            <span className="text-white">{t("hero.bookToday")}</span>
-          </motion.p>
-
           <motion.div
             initial={{
               opacity: 0,
-              y: 20,
             }}
             animate={{
               opacity: 1,
-              y: 0,
             }}
             transition={{
-              delay: 0.5,
+              delay: 0.2,
             }}
-            className="flex flex-col sm:flex-row gap-4 items-start"
+            className="inline-block mb-4 px-4 py-1.5 rounded-full glass"
           >
-            <Button
-              size="lg"
-              className="button-gradient"
-              onClick={() => {
-                console.log("Hero button clicked");
-                setIsBookingDialogOpen(true);
-              }}
-            >
-              {t("hero.bookNow")}
-            </Button>
-            <Button
-              size="lg"
-              variant="link"
-              className="text-white"
-              onClick={scrollToServices}
-            >
-              {t("hero.viewServices")} <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+            <span className="text-sm font-medium">
+              <Command className="w-4 h-4 inline-block mr-2" />
+              {t("hero.badge")}
+            </span>
           </motion.div>
-        </div>
+
+          <div className="max-w-4xl relative z-10">
+            <motion.h1
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.23, 1, 0.32, 1],
+                delay: 0.3,
+              }}
+              className={`text-5xl font-normal mb-4 tracking-tight md:text-7xl ${
+                dir === "rtl" ? "text-right" : "text-left"
+              }`}
+            >
+              <motion.span
+                className="text-gray-200 inline-block"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.23, 1, 0.32, 1],
+                  delay: 0.5,
+                }}
+              >
+                <TextGenerateEffect words={t("hero.title1")} />
+              </motion.span>
+              <motion.br
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.7 }}
+              />
+              <motion.span
+                className="text-white font-medium inline-block"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.23, 1, 0.32, 1],
+                  delay: 0.8,
+                }}
+              >
+                <TextGenerateEffect words={t("hero.title2")} />
+              </motion.span>
+            </motion.h1>
+
+            <motion.p
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.4,
+              }}
+              className={`text-lg md:text-xl text-gray-200 mb-8 max-w-2xl ${
+                dir === "rtl" ? "text-right" : "text-left"
+              }`}
+            >
+              {t("hero.description")}{" "}
+              <span className="text-white">{t("hero.bookToday")}</span>
+            </motion.p>
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.5,
+              }}
+              className="flex flex-col sm:flex-row gap-4 items-start"
+            >
+              <Button
+                size="lg"
+                className="button-gradient"
+                onClick={() => {
+                  console.log("Hero button clicked");
+                  setIsBookingDialogOpen(true);
+                }}
+              >
+                {t("hero.bookNow")}
+              </Button>
+              <Button
+                size="lg"
+                variant="link"
+                className="text-white"
+                onClick={scrollToServices}
+              >
+                {t("hero.viewServices")} <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 

@@ -192,3 +192,13 @@ button {
     object-position: 30% 30%;
   }
 }
+
+/* Environment-consistent image rendering */
+.hero-image-position {
+  image-rendering: auto;
+  image-rendering: -webkit-optimize-contrast;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+  filter: contrast(1.05) brightness(1.02);
+}
