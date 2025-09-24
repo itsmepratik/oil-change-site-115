@@ -57,11 +57,13 @@ const Index = () => {
             }}
             className="absolute top-0 left-0 hero-image-position"
           />
-          {/* Gradient overlays positioned at the very bottom to show most of the image */}
-          <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
-          {/* Additional bottom gradient to ensure consistent end effect */}
-          <div className="absolute bottom-0 left-0 right-0 h-1/6 bg-gradient-to-t from-black/70 to-transparent" />
+          {/* Enhanced gradient overlays for seamless transition */}
+          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-r from-black/40 via-transparent to-black/10" />
+          {/* Strong bottom gradient for seamless transition to LogoCarousel */}
+          <div className="absolute bottom-0 left-0 right-0 h-1/5 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
+          {/* Final transition layer */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-black/10" />
         </div>
 
         <div className="container px-4 relative z-10">

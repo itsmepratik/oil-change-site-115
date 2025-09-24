@@ -12,9 +12,13 @@ const LogoCarousel = () => {
   const extendedLogos = [...logos, ...logos, ...logos];
 
   return (
-    <div className="w-full overflow-hidden bg-black py-12 mt-20">
+    <div className="w-full overflow-hidden bg-black py-12 relative">
+      {/* Gradient overlay for seamless transition from hero */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent via-black/50 to-black pointer-events-none z-10" />
+      {/* Bottom gradient for smooth transition to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10" />
       <motion.div
-        className="flex space-x-16"
+        className="flex space-x-16 relative z-20"
         initial={{ opacity: 0, x: "0%" }}
         animate={{
           opacity: 1,
