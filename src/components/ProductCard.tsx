@@ -18,13 +18,15 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
     >
       <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group cursor-pointer">
         <CardHeader className="p-0">
-          <div className="relative overflow-hidden rounded-t-lg">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-              loading="lazy"
-            />
+          <div className="relative overflow-hidden rounded-t-lg bg-white">
+            <div className="w-full h-48 flex items-center justify-center p-4">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
             <div className="absolute top-3 left-3">
               <Badge 
                 className={`${product.category.color} border-0 font-medium`}

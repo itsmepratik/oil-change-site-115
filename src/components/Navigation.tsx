@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Command, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -10,6 +11,8 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
   const { t } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,30 +23,43 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    if (sectionId === "testimonials") {
-      const testimonialSection = document.querySelector(".animate-marquee");
-      if (testimonialSection) {
-        const yOffset = -100; // Offset to account for the fixed header
-        const y =
-          testimonialSection.getBoundingClientRect().top +
-          window.pageYOffset +
-          yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    } else if (sectionId === "cta") {
-      const ctaSection = document.querySelector(".button-gradient");
-      if (ctaSection) {
-        const yOffset = -100;
-        const y =
-          ctaSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    } else {
+  // Handle navigation to sections when arriving from other pages
+  useEffect(() => {
+    if (location.pathname === '/' && location.hash) {
+      const sectionId = location.hash.substring(1); // Remove the '#'
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.offsetTop;
+          const offsetPosition = elementPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100); // Small delay to ensure page is fully loaded
+    }
+  }, [location]);
+
+  const handleSectionNavigation = (sectionId: string) => {
+    // If we're on the home page, scroll to the section
+    if (location.pathname === '/') {
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        const offset = 80;
+        const elementPosition = element.offsetTop;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
       }
+    } else {
+      // If we're on a different page, navigate to home with section hash
+      navigate(`/#${sectionId}`);
     }
   };
 
@@ -51,18 +67,18 @@ const Navigation = () => {
     {
       name: t("nav.services"),
       href: "#features",
-      onClick: () => scrollToSection("features"),
+      onClick: () => handleSectionNavigation("features"),
     },
     {
       name: t("nav.pricing"),
       href: "#pricing",
-      onClick: () => scrollToSection("pricing"),
+      onClick: () => handleSectionNavigation("pricing"),
     },
     { name: "Catalogue", href: "/catalogue" },
     {
       name: t("nav.reviews"),
       href: "#testimonials",
-      onClick: () => scrollToSection("testimonials"),
+      onClick: () => handleSectionNavigation("testimonials"),
     },
     { name: t("nav.contact"), href: "/contact" },
   ];

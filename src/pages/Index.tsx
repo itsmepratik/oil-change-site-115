@@ -200,7 +200,7 @@ const Index = () => {
       </div>
 
       {/* Testimonials Section */}
-      <div className="bg-black">
+      <div id="testimonials" className="bg-black">
         <TestimonialsSection />
       </div>
 
