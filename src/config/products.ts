@@ -62,7 +62,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
   // Lubricants
   {
     id: "shell-rotella-t6",
-    name: "Shell Rotella T6 Full Synthetic Diesel Oil",
+    name: "Shell 20W-50 - Fully synthetic blend",
     category: PRODUCT_CATEGORIES[0],
     subcategory: "Diesel Oil",
     brand: "Shell",

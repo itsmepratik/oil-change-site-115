@@ -8,6 +8,7 @@ import BookingDialog from "@/components/BookingDialog";
 import { FeaturesSection } from "@/components/features/FeaturesSection";
 import { PricingSection } from "@/components/pricing/PricingSection";
 import LogoCarousel from "@/components/LogoCarousel";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import FoundersSection from "@/components/FoundersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Footer from "@/components/Footer";
@@ -188,6 +189,9 @@ const Index = () => {
 
       {/* Logo Carousel */}
       <LogoCarousel />
+
+      {/* Why Choose Us Section */}
+      <WhyChooseUs />
 
       {/* Features Section */}
       <div id="features" className="bg-black">

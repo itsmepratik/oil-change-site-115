@@ -24,22 +24,38 @@ export const FeatureContent = ({
 
   // Desktop carousel
   const [emblaRefDesktop, emblaApiDesktop] = useEmblaCarousel(
-    { 
+    {
       loop: true,
       align: "start",
       dragFree: false,
     },
-    hasMultipleImages ? [Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })] : []
+    hasMultipleImages
+      ? [
+          Autoplay({
+            delay: 5000,
+            stopOnInteraction: true,
+            stopOnMouseEnter: true,
+          }),
+        ]
+      : []
   );
 
-  // Mobile carousel  
+  // Mobile carousel
   const [emblaRefMobile, emblaApiMobile] = useEmblaCarousel(
-    { 
+    {
       loop: true,
-      align: "start", 
+      align: "start",
       dragFree: false,
     },
-    hasMultipleImages ? [Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })] : []
+    hasMultipleImages
+      ? [
+          Autoplay({
+            delay: 5000,
+            stopOnInteraction: true,
+            stopOnMouseEnter: true,
+          }),
+        ]
+      : []
   );
 
   // Image loading effect
@@ -91,9 +107,12 @@ export const FeatureContent = ({
     if (emblaApiDesktop) emblaApiDesktop.scrollNext();
   }, [emblaApiDesktop]);
 
-  const scrollToMobile = useCallback((index: number) => {
-    if (emblaApiMobile) emblaApiMobile.scrollTo(index);
-  }, [emblaApiMobile]);
+  const scrollToMobile = useCallback(
+    (index: number) => {
+      if (emblaApiMobile) emblaApiMobile.scrollTo(index);
+    },
+    [emblaApiMobile]
+  );
 
   if (!isLoaded) {
     return (
@@ -131,15 +150,18 @@ export const FeatureContent = ({
             <div className="embla" ref={emblaRefDesktop}>
               <div className="embla__container flex">
                 {imageArray.map((imgSrc, index) => (
-                  <div key={index} className="embla__slide flex-[0_0_100%] min-w-0">
-                  <motion.img
-                    src={imgSrc}
-                    alt={title}
-                    className="w-full h-full object-cover object-center rounded-lg"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
+                  <div
+                    key={index}
+                    className="embla__slide flex-[0_0_100%] min-w-0"
+                  >
+                    <motion.img
+                      src={imgSrc}
+                      alt={title}
+                      className="w-full h-full object-cover object-center rounded-lg"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </div>
                 ))}
               </div>
@@ -158,25 +180,27 @@ export const FeatureContent = ({
       {/* Single Image (No Multiple Images) */}
       {!hasMultipleImages && (
         <div className="rounded-xl overflow-hidden w-full max-w-md mx-auto">
-        <motion.img
-          src={imageArray[0]}
-          alt={title}
-          className="w-full h-full object-cover object-center rounded-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        />
+          <motion.img
+            src={imageArray[0]}
+            alt={title}
+            className="w-full h-full object-cover object-center rounded-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          />
         </div>
       )}
 
       {/* Mobile View (With Multiple Images) */}
       {hasMultipleImages && (
         <div className="md:hidden rounded-xl overflow-hidden w-full max-w-md mx-auto">
-
           <div className="embla" ref={emblaRefMobile}>
             <div className="embla__container flex">
               {imageArray.map((imgSrc, index) => (
-                <div key={index} className="embla__slide flex-[0_0_100%] min-w-0">
+                <div
+                  key={index}
+                  className="embla__slide flex-[0_0_100%] min-w-0"
+                >
                   <motion.img
                     src={imgSrc}
                     alt={title}

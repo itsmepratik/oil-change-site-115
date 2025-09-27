@@ -25,7 +25,7 @@ const Navigation = () => {
 
   // Handle navigation to sections when arriving from other pages
   useEffect(() => {
-    if (location.pathname === '/' && location.hash) {
+    if (location.pathname === "/" && location.hash) {
       const sectionId = location.hash.substring(1); // Remove the '#'
       setTimeout(() => {
         const element = document.getElementById(sectionId);
@@ -45,7 +45,7 @@ const Navigation = () => {
 
   const handleSectionNavigation = (sectionId: string) => {
     // If we're on the home page, scroll to the section
-    if (location.pathname === '/') {
+    if (location.pathname === "/") {
       const element = document.getElementById(sectionId);
       if (element) {
         const offset = 80;
@@ -98,7 +98,7 @@ const Navigation = () => {
             className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
           >
             <Command className="w-5 h-5 text-primary" />
-            <span className="font-bold text-base">
+            <span className="font-bold text-base whitespace-nowrap min-w-[4.5rem]">
               {isScrolled ? "HNS" : "HNS Auto"}
             </span>
           </a>

@@ -20,10 +20,10 @@ const translations = {
 
     // Hero Section
     "hero.badge": "North Al Batinah's #1 oil service center",
-    "hero.title1": "Professional oil change",
-    "hero.title2": "service in Saham",
+    "hero.title1": "Your Car’s Oil Change.",
+    "hero.title2": "Done Right. Done Fair.",
     "hero.description":
-      "Experience fast, professional oil changes with quality parts, expert service, and competitive prices in Saham, Oman.",
+      "No fancy talk. Just the best oil change in Saham. We get you in, sorted, and back on the road. Fast.",
     "hero.bookToday": "Book your service today.",
     "hero.bookNow": "Book Service Now",
     "hero.viewServices": "View Services",
