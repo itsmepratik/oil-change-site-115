@@ -1,12 +1,24 @@
 import { motion } from "framer-motion";
 
-const LogoCarousel = () => {
+interface LogoCarouselProps {
+  logoSize?: number; // Logo height in pixels
+  animationDuration?: number; // Animation duration in seconds
+}
+
+const LogoCarousel = ({ logoSize = 256, animationDuration = 60 }: LogoCarouselProps) => {
   const logos = [
-    "/lovable-uploads/5830bd79-3511-41dc-af6c-8db32d91fc2c.png",
-    "/lovable-uploads/bb50362c-6879-4868-bbc9-c6e051fd8d7d.png",
-    "/lovable-uploads/1e2a48dc-059b-4919-a1ed-44685d771a32.png",
-    "/lovable-uploads/bf56a0c6-48e4-49f7-b286-8e3fda9a3385.png",
-    "/lovable-uploads/7cc724d4-3e14-4e7c-9e7a-8d613fde54d0.png",
+    "/Brand shit/1.svg",
+    "/Brand shit/2.svg",
+    "/Brand shit/3.svg",
+    "/Brand shit/4.svg",
+    "/Brand shit/5.svg",
+    "/Brand shit/6.svg",
+    "/Brand shit/7.svg",
+    "/Brand shit/8.svg",
+    "/Brand shit/9.svg",
+    "/Brand shit/10.svg",
+    "/Brand shit/11.svg",
+    "/Brand shit/12.svg",
   ];
 
   const extendedLogos = [...logos, ...logos, ...logos];
@@ -18,6 +30,7 @@ const LogoCarousel = () => {
       {/* Bottom gradient for smooth transition to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10" />
       <motion.div
+        key={`carousel-${animationDuration}`} // Force re-render when duration changes
         className="flex space-x-16 relative z-20"
         initial={{ opacity: 0, x: "0%" }}
         animate={{
@@ -27,7 +40,7 @@ const LogoCarousel = () => {
         transition={{
           opacity: { duration: 0.5 },
           x: {
-            duration: 15, // Reduced from 25 to 15 seconds
+            duration: animationDuration, // Use configurable animation duration
             repeat: Infinity,
             ease: "linear",
             delay: 0.5,
@@ -44,8 +57,14 @@ const LogoCarousel = () => {
             key={`logo-${index}`}
             src={logo}
             alt={`Partner logo ${index + 1}`}
-            className="h-8 object-contain"
-            initial={{ opacity: 0.5 }}
+            className="w-auto object-contain"
+            style={{ height: `${logoSize}px` }}
+            initial={{ 
+              opacity: typeof window !== 'undefined' && window.innerWidth >= 768 ? 0.5 : 1 
+            }}
+            animate={{ 
+              opacity: typeof window !== 'undefined' && window.innerWidth >= 768 ? 0.5 : 1 
+            }}
             whileHover={{
               opacity: 1,
               scale: 1.05,

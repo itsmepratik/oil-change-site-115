@@ -188,7 +188,7 @@ const Index = () => {
       </motion.section>
 
       {/* Logo Carousel */}
-      <LogoCarousel />
+      <LogoCarousel logoSize={120} animationDuration={60} />
 
       {/* Why Choose Us Section */}
       <WhyChooseUs />
