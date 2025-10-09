@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import LanguageSelectionModal from "@/components/LanguageSelectionModal";
+import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 import Index from "./pages/Index";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -21,9 +22,9 @@ const App = () => {
     // For testing: uncomment to reset language selection
     // localStorage.removeItem('language-selected');
     // localStorage.removeItem('preferred-language');
-    
+
     // Check if user has previously selected a language
-    const hasSelectedLanguage = localStorage.getItem('language-selected');
+    const hasSelectedLanguage = localStorage.getItem("language-selected");
     if (hasSelectedLanguage) {
       setLanguageSelected(true);
     }
@@ -67,7 +68,9 @@ const App = () => {
           <div className="min-h-screen bg-background">
             <Toaster />
             <Sonner />
-            <LanguageSelectionModal onLanguageSelected={() => setLanguageSelected(true)} />
+            <LanguageSelectionModal
+              onLanguageSelected={() => setLanguageSelected(true)}
+            />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
@@ -76,6 +79,7 @@ const App = () => {
                 <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>
+              <FloatingWhatsAppButton />
             </BrowserRouter>
           </div>
         </TooltipProvider>
