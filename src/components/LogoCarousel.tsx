@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface LogoCarouselProps {
   logoSize?: number; // Logo height in pixels
@@ -9,6 +10,8 @@ const LogoCarousel = ({
   logoSize = 256,
   animationDuration = 60,
 }: LogoCarouselProps) => {
+  const { dir } = useLanguage();
+
   const logos = [
     "/Brand shit/1.svg",
     "/Brand shit/2.svg",
@@ -26,6 +29,9 @@ const LogoCarousel = ({
 
   const extendedLogos = [...logos, ...logos, ...logos];
 
+  // Animation direction based on language
+  const animationX = dir === "rtl" ? "50%" : "-50%";
+
   return (
     <>
       {/* Mobile-only section: Full opacity, no dimming effects */}
@@ -35,12 +41,12 @@ const LogoCarousel = ({
         {/* Bottom gradient for smooth transition to next section */}
         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10" />
         <motion.div
-          key={`mobile-carousel-${animationDuration}`} // Force re-render when duration changes
+          key={`mobile-carousel-${animationDuration}-${dir}`} // Force re-render when duration or direction changes
           className="flex space-x-16 relative z-20"
           initial={{ opacity: 0, x: "0%" }}
           animate={{
             opacity: 1,
-            x: "-50%",
+            x: animationX,
           }}
           transition={{
             opacity: { duration: 0.5 },
@@ -82,12 +88,12 @@ const LogoCarousel = ({
         {/* Bottom gradient for smooth transition to next section */}
         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10" />
         <motion.div
-          key={`desktop-carousel-${animationDuration}`} // Force re-render when duration changes
+          key={`desktop-carousel-${animationDuration}-${dir}`} // Force re-render when duration or direction changes
           className="flex space-x-16 relative z-20"
           initial={{ opacity: 0, x: "0%" }}
           animate={{
             opacity: 1,
-            x: "-50%",
+            x: animationX,
           }}
           transition={{
             opacity: { duration: 0.5 },

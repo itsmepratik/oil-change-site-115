@@ -7,7 +7,7 @@ import { getFeatures } from "@/config/features";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const FeaturesSection = () => {
-  const { t, language } = useLanguage();
+  const { t, language, dir } = useLanguage();
   const features = getFeatures(t);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
 
@@ -18,11 +18,9 @@ export const FeaturesSection = () => {
   return (
     <section className="container px-4 py-24">
       {/* Header Section */}
-      <div className={`max-w-2xl mb-20 ${language === "en" ? "mx-auto" : ""}`}>
+      <div className="max-w-2xl mx-auto mb-20">
         <h2
-          className={`text-5xl md:text-6xl font-normal mb-6 tracking-tight ${
-            language === "en" ? "text-center" : "text-left"
-          }`}
+          className="text-5xl md:text-6xl font-normal mb-6 tracking-tight text-center"
         >
           {t("features.title").split(" ")[0]}{" "}
           {t("features.title").split(" ")[1]}
@@ -32,9 +30,7 @@ export const FeaturesSection = () => {
           </span>
         </h2>
         <p
-          className={`text-lg md:text-xl text-gray-400 ${
-            language === "en" ? "text-center" : "text-left"
-          }`}
+          className="text-lg md:text-xl text-gray-400 text-center"
         >
           {t("features.subtitle")}
         </p>
@@ -43,9 +39,9 @@ export const FeaturesSection = () => {
       {/* Desktop View - Tabs */}
       <div className="hidden md:block">
         <Tabs defaultValue={features[0].title} className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-            {/* Left side - Tab triggers */}
-            <div className="md:col-span-5 space-y-3">
+          <div className={`grid grid-cols-1 md:grid-cols-12 gap-12 ${language === "ar" ? "md:grid-flow-col-dense" : ""}`}>
+            {/* Tab triggers - Position changes based on language */}
+            <div className={`space-y-3 ${language === "ar" ? "md:col-span-5 md:col-start-8" : "md:col-span-5"}`}>
               <TabsList className="flex flex-col w-full bg-transparent h-auto p-0 space-y-3">
                 {features.map((feature) => (
                   <TabsTrigger
@@ -64,8 +60,8 @@ export const FeaturesSection = () => {
               </TabsList>
             </div>
 
-            {/* Right side - Tab content with images */}
-            <div className="md:col-span-7">
+            {/* Tab content with images - Position changes based on language */}
+            <div className={` ${language === "ar" ? "md:col-span-7 md:col-start-1" : "md:col-span-7"}`}>
               {features.map((feature) => (
                 <TabsContent
                   key={feature.title}
@@ -93,9 +89,9 @@ export const FeaturesSection = () => {
               className="p-4 cursor-pointer flex items-center justify-between"
               onClick={() => toggleMobileExpansion(feature.title)}
             >
-              <div className="flex items-center space-x-3">
-                <div className="text-primary">{feature.icon}</div>
-                <div>
+              <div className={`flex items-center ${dir === "rtl" ? "space-x-reverse space-x-4" : "space-x-3"}`}>
+                <div className="text-primary flex-shrink-0">{feature.icon}</div>
+                <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
                   <h3 className="font-semibold text-white">{feature.title}</h3>
                   <p className="text-sm text-gray-400">{feature.description}</p>
                 </div>

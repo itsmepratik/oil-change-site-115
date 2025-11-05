@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const FoundersSection = () => {
-  const { t } = useLanguage();
+  const { t, dir } = useLanguage();
 
   const founders = [
     {
@@ -37,11 +37,10 @@ const FoundersSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-normal mb-6 tracking-tight text-center">
-            Meet Our <span className="text-gradient font-medium">Founders</span>
+            {t("founders.title")} <span className="text-gradient font-medium">{t("founders.titleHighlight")}</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Passionate automotive experts dedicated to revolutionizing car care
-            services
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-center">
+            {t("founders.subtitle")}
           </p>
         </motion.div>
 

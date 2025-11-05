@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Card } from "./ui/card";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const testimonials = [
   {
@@ -44,6 +45,8 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
+  const { t, dir } = useLanguage();
+
   return (
     <section className="py-20 overflow-hidden bg-black">
       <div className="container px-4">
@@ -54,9 +57,9 @@ const TestimonialsSection = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-normal mb-4">Trusted by Customers</h2>
-          <p className="text-muted-foreground text-lg">
-            Join thousands of satisfied customers all across North Al Batinah and Oman
+          <h2 className="text-5xl font-normal mb-4 text-center">{t("testimonials.title")}</h2>
+          <p className="text-muted-foreground text-lg text-center">
+            {t("testimonials.subtitle")}
           </p>
         </motion.div>
 

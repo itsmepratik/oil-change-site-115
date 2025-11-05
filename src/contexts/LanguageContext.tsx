@@ -14,6 +14,7 @@ const translations = {
     // Navigation
     "nav.services": "Services",
     "nav.pricing": "Pricing",
+    "nav.catalogue": "Catalogue",
     "nav.reviews": "Reviews",
     "nav.contact": "Contact",
     "nav.bookService": "Book Service",
@@ -131,6 +132,27 @@ const translations = {
     "footer.contact": "Contact",
     "footer.copyright": "© 2025 HNS Automotive. All rights reserved.",
 
+    // Why Choose Us Section
+    "whychooseus.title": "Why Choose Us?",
+    "whychooseus.subtitle": "We know you have options. Here is why Saham trusts us.",
+    "whychooseus.fairprice.title": "Fair Price, Guaranteed.",
+    "whychooseus.fairprice.description": "Your car needs care, not a huge bill. We offer the most reasonable oil change in town. What you see is what you pay.",
+    "whychooseus.oils.title": "Top-Tier Oils Only.",
+    "whychooseus.oils.description": "We use only high-quality oils. Your engine stays cleaner. It runs smoother. It lasts longer. Simple.",
+    "whychooseus.experts.title": "Experts Who Care.",
+    "whychooseus.experts.description": "Our team knows engines. We work with pride. We treat your car like it's our own.",
+    "whychooseus.speed.title": "In and Out.",
+    "whychooseus.speed.description": "Your time matters. We work quickly without cutting corners. Enjoy a coffee and we'll handle the grime.",
+
+    // Founders Section
+    "founders.title": "Meet Our",
+    "founders.titleHighlight": "Founders",
+    "founders.subtitle": "Passionate automotive experts dedicated to revolutionizing car care services",
+
+    // Testimonials Section
+    "testimonials.title": "Trusted by Customers",
+    "testimonials.subtitle": "Join thousands of satisfied customers all across North Al Batinah and Oman",
+
     // Contact Page
     "contact.title": "Get in",
     "contact.titleHighlight": "Touch",
@@ -156,6 +178,7 @@ const translations = {
     // Navigation
     "nav.services": "الخدمات",
     "nav.pricing": "الأسعار",
+    "nav.catalogue": "الكتالوج",
     "nav.reviews": "التقييمات",
     "nav.contact": "اتصل بنا",
     "nav.bookService": "احجز الخدمة",
@@ -265,6 +288,27 @@ const translations = {
     "footer.terms": "شروط الخدمة",
     "footer.contact": "اتصل",
     "footer.copyright": "© ٢٠٢٤ هـ ن س للسيارات. جميع الحقوق محفوظة.",
+
+    // Why Choose Us Section
+    "whychooseus.title": "لماذا تختارنا؟",
+    "whychooseus.subtitle": "نحن نعلم أن لديك خيارات. إليك السبب في ثقة صحم بنا.",
+    "whychooseus.fairprice.title": "سعر عادل، مضمون.",
+    "whychooseus.fairprice.description": "سيارتك تحتاج إلى عناية، وليس فاتورة كبيرة. نحن نقدم أرخص تغيير زيت في المدينة. ما تراه هو ما تدفعه.",
+    "whychooseus.oils.title": "زيوت عالية الجودة فقط.",
+    "whychooseus.oils.description": "نستخدم زيوت عالية الجودة فقط. يبقى محركك أنظف. يعمل بسلاسة أكبر. يدوم أطول. بسيط.",
+    "whychooseus.experts.title": "خبراء يهتمون.",
+    "whychooseus.experts.description": "فريقنا يعرف المحركات. نحن نعمل بفخر. نحن نتعامل مع سيارتك كأنها سيارتنا الخاصة.",
+    "whychooseus.speed.title": "دخول وخروج سريع.",
+    "whychooseus.speed.description": "وقتك مهم. نحن نعمل بسرعة دون التهاون في الجودة. استمتع بقهوة وسنتولى الأمر.",
+
+    // Founders Section
+    "founders.title": "تعرف على",
+    "founders.titleHighlight": "مؤسسينا",
+    "founders.subtitle": "خبراء السيارات المتحمسين المكرسين لإحداث ثورة في خدمات العناية بالسيارات",
+
+    // Testimonials Section
+    "testimonials.title": "موثوق من قبل العملاء",
+    "testimonials.subtitle": "انضم إلى آلاف العملاء الراضين في جميع أنحاء شمال الباطنة وعُمان",
 
     // Contact Page
     "contact.title": "تواصل",

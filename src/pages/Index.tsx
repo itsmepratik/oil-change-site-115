@@ -13,6 +13,7 @@ import FoundersSection from "@/components/FoundersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Footer from "@/components/Footer";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import FloatingLanguageToggle from "@/components/FloatingLanguageToggle";
 
 const Index = () => {
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
@@ -81,7 +82,7 @@ const Index = () => {
             className="inline-block mb-4 px-4 py-1.5 rounded-full glass"
           >
             <span className="text-sm font-medium">
-              <Command className="w-4 h-4 inline-block mr-2" />
+              <Command className={`w-4 h-4 inline-block ${dir === "rtl" ? "ml-2" : "mr-2"}`} />
               {t("hero.badge")}
             </span>
           </motion.div>
@@ -162,11 +163,11 @@ const Index = () => {
               transition={{
                 delay: 0.5,
               }}
-              className="flex flex-col sm:flex-row gap-4 items-start"
+              className="flex flex-col sm:flex-row gap-4 items-start w-full sm:w-auto"
             >
               <Button
                 size="lg"
-                className="button-gradient"
+                className="button-gradient w-full sm:w-auto"
                 onClick={() => {
                   console.log("Hero button clicked");
                   setIsBookingDialogOpen(true);
@@ -176,11 +177,11 @@ const Index = () => {
               </Button>
               <Button
                 size="lg"
-                variant="link"
-                className="text-white"
+                className="glass border border-white/10 hover:bg-white/10 text-white rounded-full w-full sm:w-auto transition-all duration-300"
                 onClick={scrollToServices}
               >
-                {t("hero.viewServices")} <ArrowRight className="ml-2 w-4 h-4" />
+                {t("hero.viewServices")}
+                <ArrowRight className={`w-4 h-4 ${dir === "rtl" ? "mr-2" : "ml-2"}`} />
               </Button>
             </motion.div>
           </div>
@@ -265,6 +266,8 @@ const Index = () => {
         onOpenChange={setIsBookingDialogOpen}
         allowServiceTypeSelection={true}
       />
+
+      <FloatingLanguageToggle />
     </div>
   );
 };

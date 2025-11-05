@@ -1,29 +1,32 @@
 import { DollarSign, Droplets, Users, Clock } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const WhyChooseUs = () => {
+  const { t, dir } = useLanguage();
+
   const features = [
     {
       icon: DollarSign,
-      title: "Fair Price, Guaranteed.",
-      description: "Your car needs care, not a huge bill. We offer the most reasonable oil change in town. What you see is what you pay.",
+      title: t("whychooseus.fairprice.title"),
+      description: t("whychooseus.fairprice.description"),
       colSpan: "lg:col-span-2",
     },
     {
       icon: Droplets,
-      title: "Top-Tier Oils Only.",
-      description: "We use only high-quality oils. Your engine stays cleaner. It runs smoother. It lasts longer. Simple.",
+      title: t("whychooseus.oils.title"),
+      description: t("whychooseus.oils.description"),
       colSpan: "",
     },
     {
       icon: Users,
-      title: "Experts Who Care.",
-      description: "Our team knows engines. We work with pride. We treat your car like it's our own.",
+      title: t("whychooseus.experts.title"),
+      description: t("whychooseus.experts.description"),
       colSpan: "",
     },
     {
       icon: Clock,
-      title: "In and Out.",
-      description: "Your time matters. We work quickly without cutting corners. Enjoy a coffee and we'll handle the grime.",
+      title: t("whychooseus.speed.title"),
+      description: t("whychooseus.speed.description"),
       colSpan: "lg:col-span-2",
     },
   ];
@@ -34,10 +37,10 @@ const WhyChooseUs = () => {
         <div className="flex flex-col gap-12">
           <div className="text-center">
             <h2 className="text-3xl md:text-5xl tracking-tighter font-regular mb-4">
-              Why Choose Us?
+              {t("whychooseus.title")}
             </h2>
             <p className="text-lg max-w-2xl mx-auto leading-relaxed tracking-tight text-muted-foreground">
-              We know you have options. Here is why Saham trusts us.
+              {t("whychooseus.subtitle")}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -50,8 +53,8 @@ const WhyChooseUs = () => {
                 >
                   <Icon className="w-8 h-8 stroke-1 mb-6" />
                   <div className="flex flex-col space-y-3">
-                    <h3 className="text-xl tracking-tight font-medium">{feature.title}</h3>
-                    <p className="text-muted-foreground text-base leading-relaxed">
+                    <h3 className={`text-xl tracking-tight font-medium ${dir === "rtl" ? "text-right" : "text-left"}`}>{feature.title}</h3>
+                    <p className={`text-muted-foreground text-base leading-relaxed ${dir === "rtl" ? "text-right" : "text-left"}`}>
                       {feature.description}
                     </p>
                   </div>

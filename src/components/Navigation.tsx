@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { useLanguage } from "@/contexts/LanguageContext";
 import BookingDialog from "./BookingDialog";
+import LanguageToggle from "./LanguageToggle";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -74,7 +75,7 @@ const Navigation = () => {
       href: "#pricing",
       onClick: () => handleSectionNavigation("pricing"),
     },
-    { name: "Catalogue", href: "/catalogue" },
+    { name: t("nav.catalogue"), href: "/catalogue" },
     {
       name: t("nav.reviews"),
       href: "#testimonials",
@@ -165,6 +166,9 @@ const Navigation = () => {
                     </a>
                   ))}
                   <div className="mt-4 space-y-4">
+                    <div className="flex justify-center">
+                      <LanguageToggle />
+                    </div>
                     <Button
                       onClick={() => {
                         setIsMobileMenuOpen(false);
