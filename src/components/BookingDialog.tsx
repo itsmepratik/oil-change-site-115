@@ -18,6 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 import { VehicleSelector } from "@/components/VehicleSelector";
 import { OilSelector } from "@/components/OilSelector";
 import { FilterQualitySelector } from "@/components/FilterQualitySelector";
+import { supabase } from "@/integrations/supabase/client";
 
 interface BookingDialogProps {
   open: boolean;
@@ -47,7 +48,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, a
     }
   }, [fixedServiceType]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -62,23 +63,52 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, a
       return;
     }
 
-    // Simulate booking submission
-    toast({
-      title: t('booking.confirmed'),
-      description: t('booking.contactShortly'),
-    });
+    try {
+      // Send email notification
+      const { data, error } = await supabase.functions.invoke('send-booking-email', {
+        body: {
+          type: 'booking',
+          name: formData.name,
+          phone: formData.phone,
+          vehicleModel: formData.vehicleModel,
+          preferredOil: formData.preferredOil,
+          filterQuality: formData.filterQuality,
+          serviceType: formData.serviceType || fixedServiceType,
+          notes: formData.notes
+        }
+      });
 
-    // Reset form and close dialog
-    setFormData({
-      name: "",
-      phone: "",
-      vehicleModel: "",
-      preferredOil: "",
-      filterQuality: "",
-      serviceType: fixedServiceType || "",
-      notes: ""
-    });
-    onOpenChange(false);
+      if (error) {
+        console.error('Error sending booking email:', error);
+        toast({
+          title: "Booking Received",
+          description: t('booking.contactShortly'),
+        });
+      } else {
+        toast({
+          title: t('booking.confirmed'),
+          description: t('booking.contactShortly'),
+        });
+      }
+
+      // Reset form and close dialog
+      setFormData({
+        name: "",
+        phone: "",
+        vehicleModel: "",
+        preferredOil: "",
+        filterQuality: "",
+        serviceType: fixedServiceType || "",
+        notes: ""
+      });
+      onOpenChange(false);
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      toast({
+        title: "Booking Received",
+        description: t('booking.contactShortly'),
+      });
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {

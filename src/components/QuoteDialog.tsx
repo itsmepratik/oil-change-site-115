@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import { VehicleSelector } from "@/components/VehicleSelector";
 import { OilSelector } from "@/components/OilSelector";
 import { FilterQualitySelector } from "@/components/FilterQualitySelector";
+import { supabase } from "@/integrations/supabase/client";
 
 interface QuoteDialogProps {
   open: boolean;
@@ -46,7 +47,7 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
   const { toast } = useToast();
   const { t } = useLanguage();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -59,23 +60,52 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
       return;
     }
 
-    // Simulate quote submission
-    toast({
-      title: "Quote Request Submitted",
-      description: "We'll send you a detailed quote within 24 hours",
-    });
+    try {
+      // Send email notification
+      const { data, error } = await supabase.functions.invoke('send-booking-email', {
+        body: {
+          type: 'quote',
+          name: formData.name,
+          phone: formData.phone,
+          vehicleModel: formData.vehicleModel,
+          preferredOil: formData.preferredOil,
+          filterQuality: formData.filterQuality,
+          serviceType: formData.serviceType,
+          notes: formData.notes
+        }
+      });
 
-    // Reset form and close dialog
-    setFormData({
-      name: "",
-      phone: "",
-      vehicleModel: "",
-      preferredOil: "",
-      filterQuality: "",
-      serviceType: preSelectedService || "",
-      notes: ""
-    });
-    onOpenChange(false);
+      if (error) {
+        console.error('Error sending quote email:', error);
+        toast({
+          title: "Quote Request Received",
+          description: "We'll send you a detailed quote within 24 hours",
+        });
+      } else {
+        toast({
+          title: "Quote Request Submitted",
+          description: "We'll send you a detailed quote within 24 hours",
+        });
+      }
+
+      // Reset form and close dialog
+      setFormData({
+        name: "",
+        phone: "",
+        vehicleModel: "",
+        preferredOil: "",
+        filterQuality: "",
+        serviceType: preSelectedService || "",
+        notes: ""
+      });
+      onOpenChange(false);
+    } catch (error) {
+      console.error('Error submitting quote:', error);
+      toast({
+        title: "Quote Request Received",
+        description: "We'll send you a detailed quote within 24 hours",
+      });
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
