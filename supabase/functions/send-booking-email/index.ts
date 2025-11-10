@@ -10,7 +10,7 @@ const corsHeaders = {
 };
 
 interface BookingEmailRequest {
-  type: 'booking' | 'quote';
+  type: "booking" | "quote";
   name: string;
   phone: string;
   vehicleModel?: string;
@@ -31,19 +31,28 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Received booking/quote request:", data);
 
     const isFleetService = data.serviceType === "custom";
-    const emailSubject = data.type === 'booking' 
-      ? `New Service Booking - ${data.serviceType.toUpperCase()}`
-      : `New Quote Request - ${data.serviceType.toUpperCase()}`;
+    const emailSubject =
+      data.type === "booking"
+        ? `New Service Booking - ${data.serviceType.toUpperCase()}`
+        : `New Quote Request - ${data.serviceType.toUpperCase()}`;
 
     // Build email content with website-matching styles
     let emailContent = `
       <div style="font-family: 'ClashDisplay', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; max-width: 600px; margin: 0 auto; padding: 0; background-color: #0A0A0A;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; border-radius: 0;">
           <h1 style="color: white; margin: 0; font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
-            ${data.type === 'booking' ? '🚗 New Service Booking' : '💼 New Quote Request'}
+            ${
+              data.type === "booking"
+                ? "🚗 New Service Booking"
+                : "💼 New Quote Request"
+            }
           </h1>
           <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 14px;">
-            Received on ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            Received on ${new Date().toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
           </p>
         </div>
         
@@ -51,15 +60,21 @@ const handler = async (req: Request): Promise<Response> => {
           <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-bottom: 20px;">
             <h2 style="color: #667eea; font-size: 20px; margin: 0 0 15px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">👤 Customer Information</h2>
             <p style="font-size: 16px; line-height: 1.8; color: #e0e0e0; margin: 0;">
-              <strong style="color: #ffffff;">Name:</strong> <span style="color: #b0b0b0;">${data.name}</span><br>
-              <strong style="color: #ffffff;">Phone:</strong> <span style="color: #b0b0b0;">${data.phone}</span>
+              <strong style="color: #ffffff;">Name:</strong> <span style="color: #b0b0b0;">${
+                data.name
+              }</span><br>
+              <strong style="color: #ffffff;">Phone:</strong> <span style="color: #b0b0b0;">${
+                data.phone
+              }</span>
             </p>
           </div>
           
           <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-bottom: 20px;">
             <h2 style="color: #667eea; font-size: 20px; margin: 0 0 15px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">⚙️ Service Details</h2>
             <p style="font-size: 16px; line-height: 1.8; color: #e0e0e0; margin: 0;">
-              <strong style="color: #ffffff;">Service Type:</strong> <span style="color: #b0b0b0;">${data.serviceType.toUpperCase()}${isFleetService ? ' - Fleet Service' : ''}</span>
+              <strong style="color: #ffffff;">Service Type:</strong> <span style="color: #b0b0b0;">${data.serviceType.toUpperCase()}${
+      isFleetService ? " - Fleet Service" : ""
+    }</span>
             </p>
           </div>
     `;
@@ -70,7 +85,17 @@ const handler = async (req: Request): Promise<Response> => {
           <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-bottom: 20px;">
             <h2 style="color: #667eea; font-size: 20px; margin: 0 0 15px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">🚙 Vehicle Information</h2>
             <p style="font-size: 16px; line-height: 1.8; color: #e0e0e0; margin: 0;">
-              <strong style="color: #ffffff;">Vehicle Model:</strong> <span style="color: #b0b0b0;">${data.vehicleModel}</span>${data.preferredOil ? `<br><strong style="color: #ffffff;">Preferred Oil:</strong> <span style="color: #b0b0b0;">${data.preferredOil}</span>` : ''}${data.filterQuality ? `<br><strong style="color: #ffffff;">Filter Quality:</strong> <span style="color: #b0b0b0;">${data.filterQuality}</span>` : ''}
+              <strong style="color: #ffffff;">Vehicle Model:</strong> <span style="color: #b0b0b0;">${
+                data.vehicleModel
+              }</span>${
+        data.preferredOil
+          ? `<br><strong style="color: #ffffff;">Preferred Oil:</strong> <span style="color: #b0b0b0;">${data.preferredOil}</span>`
+          : ""
+      }${
+        data.filterQuality
+          ? `<br><strong style="color: #ffffff;">Filter Quality:</strong> <span style="color: #b0b0b0;">${data.filterQuality}</span>`
+          : ""
+      }
             </p>
           </div>
       `;
@@ -94,7 +119,11 @@ const handler = async (req: Request): Promise<Response> => {
               ⚡ Priority Response Required
             </p>
             <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0 0; font-size: 14px;">
-              Please contact ${data.name} as soon as possible to confirm their ${data.type === 'booking' ? 'booking' : 'quote'}
+              Please contact ${
+                data.name
+              } as soon as possible to confirm their ${
+      data.type === "booking" ? "booking" : "quote"
+    }
             </p>
           </div>
           
@@ -107,30 +136,25 @@ const handler = async (req: Request): Promise<Response> => {
       </div>
     `;
 
-const emailResponse = await resend.batch.send([
-  {
-    from: "Oil Change Bookings <onboarding@resend.dev>",
-    to: ["pratikckb@gmail.com"],
-    subject: emailSubject,
-    html: emailContent,
-  },
-  {
-    from: "Oil Change Bookings <onboarding@resend.dev>",
-    to: ["pratikckb115@gmail.com"],
-    subject: emailSubject,
-    html: emailContent,
-  },
-]);
+    const emailResponse = await resend.emails.send({
+      from: "Oil Change Bookings <onboarding@resend.dev>",
+      to: ["pratikckb115@gmail.com"],
+      subject: emailSubject,
+      html: emailContent,
+    });
 
     console.log("Email sent successfully:", emailResponse);
 
-    return new Response(JSON.stringify({ success: true, data: emailResponse }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        ...corsHeaders,
-      },
-    });
+    return new Response(
+      JSON.stringify({ success: true, data: emailResponse }),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
+      }
+    );
   } catch (error: any) {
     console.error("Error in send-booking-email function:", error);
     return new Response(
