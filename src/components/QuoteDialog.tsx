@@ -28,6 +28,7 @@ interface QuoteDialogProps {
 }
 
 const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -50,6 +51,9 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Prevent double submission
+    if (isSubmitting) return;
+    
     // Basic validation
     if (!formData.name || !formData.phone || !formData.vehicleModel || !formData.serviceType) {
       toast({
@@ -59,6 +63,8 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
       });
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       // Send email notification
@@ -105,6 +111,8 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
         title: "Quote Request Received",
         description: "We'll send you a detailed quote within 24 hours",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -225,10 +233,26 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
           >
             <Button
               type="submit"
-              className="w-full button-gradient text-white font-medium"
+              disabled={isSubmitting}
+              className="w-full button-gradient text-white font-medium relative overflow-hidden"
               size="lg"
             >
-              Get Quote
+              {isSubmitting ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center gap-2"
+                >
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                  />
+                  Sending...
+                </motion.div>
+              ) : (
+                "Get Quote"
+              )}
             </Button>
           </motion.div>
         </motion.form>
