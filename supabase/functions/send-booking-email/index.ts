@@ -107,12 +107,13 @@ const handler = async (req: Request): Promise<Response> => {
       </div>
     `;
 
-    const emailResponse = await resend.emails.send({
-      from: "Oil Change Bookings <onboarding@resend.dev>",
-      to: ["pratikckb@gmail.com", "pratikckb115@gmail.com"],
-      subject: emailSubject,
-      html: emailContent,
-    });
+const emailResponse = await resend.emails.send({
+  from: "Oil Change Bookings <onboarding@resend.dev>",
+  to: ["pratikckb@gmail.com"],
+  cc: ["pratikckb115@gmail.com"],
+  subject: emailSubject,
+  html: emailContent,
+});
 
     console.log("Email sent successfully:", emailResponse);
 
