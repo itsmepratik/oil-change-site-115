@@ -116,7 +116,7 @@ const emailResponse = await resend.batch.send([
   },
   {
     from: "Oil Change Bookings <onboarding@resend.dev>",
-    to: ["mohammedrifat8459@gmail.com"],
+    to: ["pratikckb115@gmail.com"],
     subject: emailSubject,
     html: emailContent,
   },
