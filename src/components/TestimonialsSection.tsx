@@ -5,47 +5,48 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Card } from "./ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const testimonials = [
+const getTestimonials = (t: (key: string) => string) => [
   {
-    name: "Ahmad Al-Rashid",
-    role: "Fleet Manager",
+    nameKey: "testimonials.ahmad.name",
+    roleKey: "testimonials.ahmad.role",
+    contentKey: "testimonials.ahmad.content",
     image: "https://avatars.githubusercontent.com/u/1234567?v=4",
-    content: "The quick oil change service and quality parts have kept our company vehicles running smoothly. Their professional service and competitive prices make them our go-to choice in Saham."
   },
   {
-    name: "Fatima Al-Zahra",
-    role: "Local Resident",
+    nameKey: "testimonials.fatima.name",
+    roleKey: "testimonials.fatima.role",
+    contentKey: "testimonials.fatima.content",
     image: "https://avatars.githubusercontent.com/u/2345678?v=4",
-    content: "I've been bringing my car here for over 2 years. The staff is knowledgeable, the service is fast, and they always use quality oil and filters. Highly recommended!"
   },
   {
-    name: "Mohammed Al-Busaidi",
-    role: "Taxi Driver",
+    nameKey: "testimonials.mohammed.name",
+    roleKey: "testimonials.mohammed.role",
+    contentKey: "testimonials.mohammed.content",
     image: "https://avatars.githubusercontent.com/u/3456789?v=4",
-    content: "As a taxi driver, regular maintenance is crucial. Their oil change service is efficient and affordable. The team understands the needs of commercial vehicles."
   },
   {
-    name: "Aisha Al-Hinai",
-    role: "Working Professional",
+    nameKey: "testimonials.aisha.name",
+    roleKey: "testimonials.aisha.role",
+    contentKey: "testimonials.aisha.content",
     image: "https://avatars.githubusercontent.com/u/4567890?v=4",
-    content: "I appreciate their quick service and fair pricing. They also helped me find the right battery for my car. Professional and trustworthy service center."
   },
   {
-    name: "Salem Al-Kindi",
-    role: "Car Enthusiast",
+    nameKey: "testimonials.salem.name",
+    roleKey: "testimonials.salem.role",
+    contentKey: "testimonials.salem.content",
     image: "https://avatars.githubusercontent.com/u/5678901?v=4",
-    content: "They stock quality spare parts and their oil change service is top-notch. The technicians are experienced and always provide honest advice about my vehicle's needs."
   },
   {
-    name: "Mariam Al-Lawati",
-    role: "Family Driver",
+    nameKey: "testimonials.mariam.name",
+    roleKey: "testimonials.mariam.role",
+    contentKey: "testimonials.mariam.content",
     image: "https://avatars.githubusercontent.com/u/6789012?v=4",
-    content: "Reliable service with a personal touch. They remember my car's service history and always remind me when it's time for maintenance. Great customer care!"
   }
 ];
 
 const TestimonialsSection = () => {
   const { t, dir } = useLanguage();
+  const testimonials = getTestimonials(t);
 
   return (
     <section className="py-20 overflow-hidden bg-black">
@@ -71,15 +72,15 @@ const TestimonialsSection = () => {
                   <div className="flex items-center gap-4 mb-6">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={testimonial.image} />
-                      <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
+                      <AvatarFallback>{t(testimonial.nameKey)[0]}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-medium text-white/90">{testimonial.name}</h4>
-                      <p className="text-sm text-white/60">{testimonial.role}</p>
+                      <h4 className="font-medium text-white/90">{t(testimonial.nameKey)}</h4>
+                      <p className="text-sm text-white/60">{t(testimonial.roleKey)}</p>
                     </div>
                   </div>
                   <p className="text-white/70 leading-relaxed">
-                    {testimonial.content}
+                    {t(testimonial.contentKey)}
                   </p>
                 </Card>
               ))}
@@ -90,15 +91,15 @@ const TestimonialsSection = () => {
                   <div className="flex items-center gap-4 mb-6">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={testimonial.image} />
-                      <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
+                      <AvatarFallback>{t(testimonial.nameKey)[0]}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-medium text-white/90">{testimonial.name}</h4>
-                      <p className="text-sm text-white/60">{testimonial.role}</p>
+                      <h4 className="font-medium text-white/90">{t(testimonial.nameKey)}</h4>
+                      <p className="text-sm text-white/60">{t(testimonial.roleKey)}</p>
                     </div>
                   </div>
                   <p className="text-white/70 leading-relaxed">
-                    {testimonial.content}
+                    {t(testimonial.contentKey)}
                   </p>
                 </Card>
               ))}
