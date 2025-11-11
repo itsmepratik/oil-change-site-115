@@ -32,6 +32,7 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    email: "",
     vehicleModel: "",
     preferredOil: "",
     filterQuality: "",
@@ -55,7 +56,7 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
     if (isSubmitting) return;
     
     // Basic validation
-    if (!formData.name || !formData.phone || !formData.vehicleModel || !formData.serviceType) {
+    if (!formData.name || !formData.phone || !formData.email || !formData.vehicleModel || !formData.serviceType) {
       toast({
         title: t('booking.missingInfo'),
         description: t('booking.fillFields'),
@@ -73,6 +74,7 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
           type: 'quote',
           name: formData.name,
           phone: formData.phone,
+          email: formData.email,
           vehicleModel: formData.vehicleModel,
           preferredOil: formData.preferredOil,
           filterQuality: formData.filterQuality,
@@ -98,6 +100,7 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
       setFormData({
         name: "",
         phone: "",
+        email: "",
         vehicleModel: "",
         preferredOil: "",
         filterQuality: "",
@@ -169,6 +172,23 @@ const QuoteDialog = ({ open, onOpenChange, preSelectedService }: QuoteDialogProp
                 required
               />
             </div>
+          </div>
+
+          {/* Email */}
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
+              <span className="text-primary">✉️</span>
+              Email Address {t('booking.required')}
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+              placeholder="your.email@example.com"
+              className="glass border-white/20 bg-white/5 text-white placeholder:text-gray-400"
+              required
+            />
           </div>
 
           {/* Vehicle Information */}

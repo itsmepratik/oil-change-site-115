@@ -33,6 +33,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, a
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    email: "",
     vehicleModel: "",
     preferredOil: "",
     filterQuality: "",
@@ -56,7 +57,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, a
     if (isSubmitting) return;
     
     // Basic validation
-    if (!formData.name || !formData.phone || 
+    if (!formData.name || !formData.phone || !formData.email ||
         (!formData.serviceType && !fixedServiceType) ||
         (!isFleetService && (!formData.vehicleModel))) {
       toast({
@@ -76,6 +77,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, a
           type: 'booking',
           name: formData.name,
           phone: formData.phone,
+          email: formData.email,
           vehicleModel: formData.vehicleModel,
           preferredOil: formData.preferredOil,
           filterQuality: formData.filterQuality,
@@ -101,6 +103,7 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, a
       setFormData({
         name: "",
         phone: "",
+        email: "",
         vehicleModel: "",
         preferredOil: "",
         filterQuality: "",
@@ -172,6 +175,23 @@ const BookingDialog = ({ open, onOpenChange, fixedServiceType, isFleetService, a
                 required
               />
             </div>
+          </div>
+
+          {/* Email */}
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
+              <span className="text-primary">✉️</span>
+              Email Address {t('booking.required')}
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+              placeholder="your.email@example.com"
+              className="glass border-white/20 bg-white/5 text-white placeholder:text-gray-400"
+              required
+            />
           </div>
 
           {/* Vehicle Information - Only for non-Fleet services */}
